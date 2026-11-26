@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Interface Web para Geração de Vídeos - v4.2 Fila de Jobs + Cancelamento
+Interface Web para Geraçêo de Vídeos - v4.2 Fila de Jobs + Cancelamento
 Suporta: Wan 2.2 5B | Wan 2.2 14B MoE
 I2V: Wan 2.2 5B (WanImageToVideo)
 Acesse em: http://localhost:7862
@@ -49,7 +49,7 @@ jobs = {}
 comfyui_progress = {}  # prompt_id -> {"value": int, "max": int}
 
 # ---------------------------------------------------------------------------
-# Fila de execução
+# Fila de execuçêo
 # ---------------------------------------------------------------------------
 
 job_queue = _queue.Queue()      # fila de job_ids
@@ -85,7 +85,7 @@ def start_progress_watcher():
     try:
         import websocket
     except ImportError:
-        print("  [info] websocket-client não instalado - progresso por estimativa de tempo")
+        print("  [info] websocket-client nêo instalado - progresso por estimativa de tempo")
         return
 
     client_id = str(uuid.uuid4())
@@ -176,13 +176,13 @@ def build_cmd(job_id: str, req):
 
 
 def estimate_seconds(req) -> int:
-    """Estimativa grosseira de segundos de geração baseada em frames e modelo."""
+    """Estimativa grosseira de segundos de geraçêo baseada em frames e modelo."""
     factors = {"wan22_14b": 6, "wan22_5b": 2, "ltx23": 5}
     return req.frames * factors.get(req.model, 4)
 
 
 def calc_progress_pct(job: dict) -> int:
-    """Retorna 0-100. Usa WS se disponível, senão estimativa por tempo."""
+    """Retorna 0-100. Usa WS se disponível, senêo estimativa por tempo."""
     prompt_id = job.get("prompt_id")
     if prompt_id and prompt_id in comfyui_progress:
         p = comfyui_progress[prompt_id]
@@ -236,7 +236,7 @@ def run_job(job_id: str, req):
             restart_comfyui()
             return
 
-        # Aguardar vídeo aparecer (com verificação de cancelamento)
+        # Aguardar vídeo aparecer (com verificaçêo de cancelamento)
         start  = time.time()
         # Usar job_id como critério (único e presente em qualquer variante T2V/I2V)
         video_found = None
@@ -267,7 +267,7 @@ def run_job(job_id: str, req):
             jobs[job_id]["video_size_mb"]   = round(stat.st_size / 1048576, 2)
         else:
             jobs[job_id]["status"] = "error"
-            jobs[job_id]["error"]  = f"Timeout: vídeo não encontrado após {elapsed:.0f}s"
+            jobs[job_id]["error"]  = f"Timeout: vídeo nêo encontrado após {elapsed:.0f}s"
 
         save_jobs()
         restart_comfyui()
@@ -511,7 +511,7 @@ async def home():
     <div class="img-clear" id="clearBtn" onclick="clearImage()">✕ Remover imagem</div>
   </div>
 
-  <label>Resolução</label>
+  <label>Resoluçêo</label>
   <div class="presets" id="presets"></div>
 
   <div class="form-group">
@@ -616,7 +616,7 @@ function selectModel(model, el) {
   renderPresets();
   applyPreset(MODEL_PRESETS[model][0]);
   document.getElementById('split-group').style.display = model === 'wan22_14b' ? 'block' : 'none';
-  // Mostrar/ocultar seção de imagem
+  // Mostrar/ocultar seçêo de imagem
   const i2vSupport = ['wan22_5b'].includes(model);
   document.getElementById('i2v-section').style.display = i2vSupport ? 'block' : 'none';
   if (!i2vSupport) clearImage();
@@ -782,7 +782,7 @@ function buildDetailGrid(req, job) {
   const dur  = req.frames && req.fps ? `${(req.frames/req.fps).toFixed(1)}s` : '—';
   const items = [
     ['Modelo',      MODEL_LABELS[req.model] || req.model],
-    ['Resolução',   `${req.width}×${req.height}`],
+    ['Resoluçêo',   `${req.width}×${req.height}`],
     ['Frames',      `${req.frames} (${dur} @ ${req.fps}fps)`],
     ['CFG',         req.cfg],
     ['Steps',       req.steps || '—'],
@@ -792,7 +792,7 @@ function buildDetailGrid(req, job) {
     ['Submetido',   fmt(job.created_at)],
     ['Iniciado',    fmt(job.started_at)],
     ['Concluído',   fmt(job.completed_at)],
-    ['Duração',     job.generation_time || elapsed(job.started_at, job.completed_at)],
+    ['Duraçêo',     job.generation_time || elapsed(job.started_at, job.completed_at)],
     ['Tamanho',     job.video_size_mb ? `${job.video_size_mb} MB` : '—'],
     ['Prompt ID',   job.prompt_id || '—'],
   ];
@@ -821,7 +821,7 @@ async function loadJobs() {
     const fp = jobsFingerprint(jobs);
     const domExists = container.querySelector('.job-card');
     if (fp === _lastJobsFingerprint && domExists) {
-      return; // Nada mudou, não toca no DOM
+      return; // Nada mudou, nêo toca no DOM
     }
     _lastJobsFingerprint = fp;
 
@@ -841,7 +841,7 @@ async function loadJobs() {
       return;
     }
 
-    // Botão de gerar sempre habilitado; mostrar contador de fila
+    // Botêo de gerar sempre habilitado; mostrar contador de fila
     const queuedCount = sorted.filter(([,j]) => j.status === 'queued').length;
     const processingCount = sorted.filter(([,j]) => j.status === 'processing').length;
     document.getElementById('genBtn').disabled = false;
@@ -874,7 +874,7 @@ async function loadJobs() {
       const vram       = VRAM_MAP[req.model] || '';
       const isOpen     = expandedJobs.has(id);
 
-      // Botão cancelar para queued ou processing
+      // Botêo cancelar para queued ou processing
       const canCancel = job.status === 'queued' || job.status === 'processing';
       const cancelBtn = canCancel
         ? `<button onclick="cancelJob('${id}')" class="btn-cancel">✕ Cancelar</button>`
@@ -892,7 +892,7 @@ async function loadJobs() {
       // Indicador de fila
       let queueHtml = '';
       if (job.status === 'queued') {
-        queueHtml = `<div class="queue-info">⏳ Aguardando na fila — posição #${job.queue_position || '?'}</div>`;
+        queueHtml = `<div class="queue-info">⏳ Aguardando na fila — posiçêo #${job.queue_position || '?'}</div>`;
       }
 
       // Video
@@ -1055,7 +1055,7 @@ async def generate(request: VideoRequest):
 async def cancel_job(job_id: str):
     job = jobs.get(job_id)
     if not job:
-        return JSONResponse(status_code=404, content={"error": "Job não encontrado"})
+        return JSONResponse(status_code=404, content={"error": "Job nêo encontrado"})
 
     if job["status"] == "queued":
         # Cancelamento imediato: marcar para pular no worker
@@ -1072,7 +1072,7 @@ async def cancel_job(job_id: str):
 
     return JSONResponse(
         status_code=400,
-        content={"error": f"Job em status '{job['status']}' não pode ser cancelado"}
+        content={"error": f"Job em status '{job['status']}' nêo pode ser cancelado"}
     )
 
 
@@ -1103,7 +1103,7 @@ async def get_video(filename: str):
     fp = (OUTPUT_DIR / filename).resolve()
     if OUTPUT_DIR.resolve() in fp.parents and fp.is_file():
         return FileResponse(fp)
-    return JSONResponse(status_code=404, content={"error": "Não encontrado"})
+    return JSONResponse(status_code=404, content={"error": "Nêo encontrado"})
 
 
 @app.get("/api/all-videos")

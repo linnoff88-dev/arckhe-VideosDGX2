@@ -72,7 +72,7 @@ def submit_workflow(workflow):
             print(response.text)
             return None
     except Exception as e:
-        print(f"❌ Erro de conexão: {e}")
+        print(f"❌ Erro de conexêo: {e}")
         return None
 
 def main():
@@ -81,7 +81,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exemplos:
-  # 720P, ~3.5s (padrão)
+  # 720P, ~3.5s (padrêo)
   ./gerar_video_wan22_14b.py "a cinematic shot of a waterfall"
 
   # 480P mais rápido
@@ -96,27 +96,27 @@ Exemplos:
 Wan 2.2 14B MoE - Arquitetura:
   - Expert 1 (High Noise): Steps 0 → split_step  (primeiras etapas)
   - Expert 2 (Low Noise):  Steps split_step → total (últimas etapas)
-  - CFG padrão: 3.5 (mais baixo que Wan 2.1 e 5B)
+  - CFG padrêo: 3.5 (mais baixo que Wan 2.1 e 5B)
   - Qualidade cinematográfica máxima da família Wan
 
 Parâmetros recomendados:
-  - 720P:  1280x704, 57 frames  (~3.5s @ 24fps) — ~6-8 min geração
-  - 480P:  832x480,  33 frames  (~2s @ 24fps)   — ~3-4 min geração
+  - 720P:  1280x704, 57 frames  (~3.5s @ 24fps) — ~6-8 min geraçêo
+  - 480P:  832x480,  33 frames  (~2s @ 24fps)   — ~3-4 min geraçêo
   - 1080P: 1920x1080, 57 frames (heavy, ~128GB VRAM mínimo)
         """
     )
 
-    parser.add_argument("prompt", help="Descrição do vídeo a gerar")
-    parser.add_argument("--negative", default=None, help="Prompt negativo (padrão: oficial Wan em chinês)")
-    parser.add_argument("--width",  type=int, default=1280, help="Largura (padrão: 1280)")
-    parser.add_argument("--height", type=int, default=704,  help="Altura (padrão: 704)")
-    parser.add_argument("--frames", type=int, default=57,   help="Frames (padrão: 57 = ~3.5s)")
-    parser.add_argument("--fps",    type=int, default=24,   help="FPS output (padrão: 24)")
-    parser.add_argument("--cfg",    type=float, default=3.5, help="CFG scale (padrão: 3.5)")
+    parser.add_argument("prompt", help="Descriçêo do vídeo a gerar")
+    parser.add_argument("--negative", default=None, help="Prompt negativo (padrêo: oficial Wan em chinês)")
+    parser.add_argument("--width",  type=int, default=1280, help="Largura (padrêo: 1280)")
+    parser.add_argument("--height", type=int, default=704,  help="Altura (padrêo: 704)")
+    parser.add_argument("--frames", type=int, default=57,   help="Frames (padrêo: 57 = ~3.5s)")
+    parser.add_argument("--fps",    type=int, default=24,   help="FPS output (padrêo: 24)")
+    parser.add_argument("--cfg",    type=float, default=3.5, help="CFG scale (padrêo: 3.5)")
     parser.add_argument("--seed",   type=int, default=-1,   help="Seed (-1 = aleatório)")
-    parser.add_argument("--steps",  type=int, default=20,   help="Steps totais (padrão: 20)")
+    parser.add_argument("--steps",  type=int, default=20,   help="Steps totais (padrêo: 20)")
     parser.add_argument("--split-step", type=int, default=10, dest="split_step",
-                        help="Step de troca High→Low Noise (padrão: 10 = metade)")
+                        help="Step de troca High→Low Noise (padrêo: 10 = metade)")
     parser.add_argument("--output", default="wan22_14b_video", help="Prefixo do arquivo de saída")
 
     args = parser.parse_args()
@@ -144,7 +144,7 @@ Parâmetros recomendados:
     print("🎬 Gerando workflow Wan 2.2 14B MoE...")
     print(f"   Modelo: Wan 2.2 T2V 14B MoE (High Noise + Low Noise)")
     print(f"   Prompt: {args.prompt}")
-    print(f"   Resolução: {args.width}x{args.height}")
+    print(f"   Resoluçêo: {args.width}x{args.height}")
     print(f"   Frames: {args.frames} @ {args.fps}fps = {duration:.1f}s")
     print(f"   Steps: {args.steps} (split em step {args.split_step})")
     print(f"   CFG: {args.cfg}")
@@ -156,7 +156,7 @@ Parâmetros recomendados:
     prompt_id = submit_workflow(workflow)
 
     if prompt_id:
-        print("✅ SUCESSO! Geração iniciada!")
+        print("✅ SUCESSO! Geraçêo iniciada!")
         print(f"   Prompt ID: {prompt_id}")
         print()
         estimated = int(args.frames * 5)

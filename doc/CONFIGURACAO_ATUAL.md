@@ -1,6 +1,6 @@
-# Relatório de Configuração e Estrutura — DGX Video Studio
+# Relatório de Configuraçêo e Estrutura — DGX Video Studio
 **Data:** 2026-02-18
-**Status:** Sistema em produção
+**Status:** Sistema em produçêo
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## 2. Software Base
 
-| Item | Versão |
+| Item | Versêo |
 |------|--------|
 | OS | Linux 6.14.0-1015-nvidia |
 | Python | 3.12.3 |
@@ -29,7 +29,7 @@
 
 ---
 
-## 3. Serviços em Execução
+## 3. Serviços em Execuçêo
 
 | Serviço | Porta | PID | Arquivo |
 |---------|-------|-----|---------|
@@ -42,7 +42,7 @@
 
 ## 4. Modelos Instalados
 
-### 4.1 Modelos de Difusão / UNet — `ComfyUI/models/unet/` (101 GB)
+### 4.1 Modelos de Difusêo / UNet — `ComfyUI/models/unet/` (101 GB)
 
 | Arquivo | Tamanho | Status | Uso |
 |---------|---------|--------|-----|
@@ -65,7 +65,7 @@
 | `ltx-2-19b-dev-fp4_projections_only.safetensors` | 2.7 GB | ✅ Ativo | LTX-2 projections (FP4) |
 | `models_t5_umt5-xxl-enc-bf16.pth` | 11 GB | ✅ Ativo | Wan 2.2 text encoder (BF16) |
 | `umt5_xxl_fp16.safetensors` | 11 GB | ⚠️ Redundante | Duplicata do T5 em FP16 |
-| `umt5_xxl_fp8_e4m3fn_scaled.safetensors.BROKEN` | 6.3 GB | ❌ Corrompido | FP8 — header grande, não funciona |
+| `umt5_xxl_fp8_e4m3fn_scaled.safetensors.BROKEN` | 6.3 GB | ❌ Corrompido | FP8 — header grande, nêo funciona |
 
 ### 4.4 VAE — `ComfyUI/models/vae/` (2 GB)
 
@@ -85,32 +85,32 @@
 - **Arquitetura:** Mixture of Experts com 2 modelos especializados
   - High Noise Expert (primeiros steps)
   - Low Noise Expert (steps finais)
-- **Quantização:** FP8 scaled (14 GB cada, total 28 GB)
+- **Quantizaçêo:** FP8 scaled (14 GB cada, total 28 GB)
 - **VRAM estimada:** ~90 GB
 - **Text encoder:** UMT5-XXL BF16
 - **Workflow:** `workflow_wan22_14b_t2v.json`
 - **Script:** `gerar_video_wan22_14b.py`
-- **Parâmetros padrão:** 720×480 · 33f · CFG 3.5 · Steps 30 · Split step 15
+- **Parâmetros padrêo:** 720×480 · 33f · CFG 3.5 · Steps 30 · Split step 15
 - **Tempo estimado:** ~8 min para 57f @ 720P
 
 ### Wan 2.2 5B — `RÁPIDO · T2V + I2V`
 - **Arquitetura:** Modelo híbrido único (Text-to-Video + Image-to-Video)
-- **Quantização:** FP16 (9.4 GB)
+- **Quantizaçêo:** FP16 (9.4 GB)
 - **VRAM estimada:** ~25 GB
 - **Text encoder:** UMT5-XXL BF16 (compartilhado com 14B)
 - **Workflow:** `workflow_wan22_5b_t2v.json`
 - **Scripts:** `gerar_video_wan22_5b.py` · `gerar_video_wan22_5b_i2v.py`
-- **Parâmetros padrão:** 720×480 · 33f · CFG 6.0 · Steps 20
+- **Parâmetros padrêo:** 720×480 · 33f · CFG 6.0 · Steps 20
 - **Tempo estimado:** ~2 min para 33f @ 480P
 
 ### LTX-2 19B — `ÚNICO COM ÁUDIO`
 - **Arquitetura:** Diffusion transformer full (áudio + vídeo)
-- **Quantização:** Checkpoint distilled (FP4 nativo)
+- **Quantizaçêo:** Checkpoint distilled (FP4 nativo)
 - **VRAM estimada:** ~45 GB
 - **Text encoder:** Gemma 3 12B FP8 + projections FP4
 - **Custom node:** `ComfyUI-LTXVideo`
 - **Scripts:** `gerar_video_ltx2.py` · `gerar_video_ltx2_i2v.py`
-- **Parâmetros padrão:** 1024×576 · 49f · CFG 3.0 · Steps 30
+- **Parâmetros padrêo:** 1024×576 · 49f · CFG 3.0 · Steps 30
 - **Tempo estimado:** ~3 min para 49f
 
 ---
@@ -123,11 +123,11 @@ http://localhost:7862
 ```
 
 ### Funcionalidades
-- **Seleção de modelo:** Wan 2.2 14B / Wan 2.2 5B / LTX-2
-- **Presets de resolução** por modelo
+- **Seleçêo de modelo:** Wan 2.2 14B / Wan 2.2 5B / LTX-2
+- **Presets de resoluçêo** por modelo
 - **Image-to-Video (I2V):** LTX-2 e Wan 2.2 5B (upload de imagem)
 - **Fila de jobs ilimitada:** múltiplos jobs em sequência (`queued → processing → completed`)
-- **Cancelamento:** botão ✕ para jobs na fila ou em processamento
+- **Cancelamento:** botêo ✕ para jobs na fila ou em processamento
 - **Refresh adaptativo:** 4s com jobs ativos · 20s quando ocioso · galeria 30s
 - **Galeria:** todos os vídeos gerados com preview inline
 - **Log de progresso:** barra de progresso via WebSocket do ComfyUI
@@ -139,7 +139,7 @@ http://localhost:7862
 
 ### Histórico de versões da interface
 
-| Versão | Porta | Novidade principal |
+| Versêo | Porta | Novidade principal |
 |--------|-------|--------------------|
 | v1 | 7860 | Primeiro protótipo |
 | v2/v3 | 7860 | Múltiplos modelos |
@@ -156,11 +156,11 @@ http://localhost:7862
 | `ComfyUI-LTXVideo` | Nodes específicos para LTX-2 (LTXVImgToVideoConditionOnly, etc.) |
 | `ComfyUI-VideoHelperSuite` | Utilitários de vídeo (combine frames, etc.) |
 | `ComfyUI-WanVideoKsampler` | KSampler especializado para Wan 2.x |
-| `MAGI-1` | Node do modelo MAGI-1 (instalado, modelo não baixado) |
+| `MAGI-1` | Node do modelo MAGI-1 (instalado, modelo nêo baixado) |
 
 ---
 
-## 8. Scripts de Geração (CLI)
+## 8. Scripts de Geraçêo (CLI)
 
 | Script | Modelo | Modo |
 |--------|--------|------|
@@ -186,15 +186,15 @@ http://localhost:7862
 
 | Problema | Causa | Status |
 |----------|-------|--------|
-| `wan2.1_t2v_14B.safetensors` não funciona | Header safetensors >48 KB — incompatível com v0.7.0 | ⚠️ Ignorado (usando 2.2) |
+| `wan2.1_t2v_14B.safetensors` nêo funciona | Header safetensors >48 KB — incompatível com v0.7.0 | ⚠️ Ignorado (usando 2.2) |
 | `umt5_xxl_fp8_e4m3fn_scaled.safetensors.BROKEN` | Header grande (mesmo problema) | ⚠️ Ignorado (usando BF16 .pth) |
-| `umt5_xxl_fp16.safetensors` (11 GB) | Duplicata do BF16 — pode ser removido | 🗑️ Candidato a remoção |
-| Jobs I2V travavam em `processing` | Bug: prefix de busca não incluía `_i2v` no nome | ✅ Corrigido em v4.1 e v4.2 |
+| `umt5_xxl_fp16.safetensors` (11 GB) | Duplicata do BF16 — pode ser removido | 🗑️ Candidato a remoçêo |
+| Jobs I2V travavam em `processing` | Bug: prefix de busca nêo incluía `_i2v` no nome | ✅ Corrigido em v4.1 e v4.2 |
 | Wan 2.2 5B usa FP16 em vez de FP8 | Arquivo disponível no HuggingFace é FP16 | ℹ️ Aceitável (9.4 GB, cabe bem) |
 
 ---
 
-## 11. Inicialização do Sistema
+## 11. Inicializaçêo do Sistema
 
 ```bash
 # 1. Verificar se ComfyUI está rodando
@@ -218,4 +218,4 @@ tail -f web_v4_2.log
 ---
 
 **Autor:** Claude Code Agent (Sonnet 4.5)
-**Última atualização:** 2026-02-18
+**Última atualizaçêo:** 2026-02-18

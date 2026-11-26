@@ -69,7 +69,7 @@ def submit_workflow(workflow):
             return None
 
     except Exception as e:
-        print(f"❌ Erro de conexão: {e}")
+        print(f"❌ Erro de conexêo: {e}")
         return None
 
 def main():
@@ -97,7 +97,7 @@ Wan 2.2 5B - Características:
   - Modelo híbrido: Text-to-Video + Image-to-Video
   - Mais leve e rápido que 14B (~20GB vs ~70GB)
   - Suporta First-Last Frame conditioning
-  - Recomendado para experimentação rápida
+  - Recomendado para experimentaçêo rápida
   - Qualidade: Boa (mas inferior ao 14B MoE)
 
 Parâmetros recomendados:
@@ -105,19 +105,19 @@ Parâmetros recomendados:
   - 480P, 5s: 720x480, 80 frames (VRAM mínima: 12GB)
   - 720P, 3s: 1280x720, 50 frames (VRAM mínima: 16GB)
 
-  CFG: 6.0 (padrão) ou 5-8 (mais/menos controle)
+  CFG: 6.0 (padrêo) ou 5-8 (mais/menos controle)
   FPS: 24fps para output (modelo gera em 16fps)
         """
     )
 
-    parser.add_argument("prompt", help="Descrição do vídeo a gerar")
+    parser.add_argument("prompt", help="Descriçêo do vídeo a gerar")
     parser.add_argument("--negative", default="", help="Prompt negativo")
-    parser.add_argument("--width", type=int, default=720, help="Largura (padrão: 720)")
-    parser.add_argument("--height", type=int, default=480, help="Altura (padrão: 480)")
-    parser.add_argument("--frames", type=int, default=33, help="Número de frames (padrão: 33 = ~2s)")
-    parser.add_argument("--fps", type=int, default=24, help="FPS do vídeo final (padrão: 24)")
-    parser.add_argument("--cfg", type=float, default=6.0, help="CFG scale (padrão: 6.0)")
-    parser.add_argument("--seed", type=int, default=42, help="Seed (padrão: 42)")
+    parser.add_argument("--width", type=int, default=720, help="Largura (padrêo: 720)")
+    parser.add_argument("--height", type=int, default=480, help="Altura (padrêo: 480)")
+    parser.add_argument("--frames", type=int, default=33, help="Número de frames (padrêo: 33 = ~2s)")
+    parser.add_argument("--fps", type=int, default=24, help="FPS do vídeo final (padrêo: 24)")
+    parser.add_argument("--cfg", type=float, default=6.0, help="CFG scale (padrêo: 6.0)")
+    parser.add_argument("--seed", type=int, default=42, help="Seed (padrêo: 42)")
     parser.add_argument("--output", default="wan22_5b_video", help="Prefixo do arquivo de saída")
 
     args = parser.parse_args()
@@ -129,16 +129,16 @@ Parâmetros recomendados:
     if args.width > 1280 or args.height > 720:
         print("⚠️  Aviso: Resoluções > 720P podem causar OOM")
 
-    # Calcular duração
+    # Calcular duraçêo
     duration = args.frames / 16  # Modelo gera em 16fps
     duration_output = args.frames / args.fps
 
     print("🎬 Gerando workflow Wan 2.2 5B...")
     print(f"   Modelo: Wan 2.2 TI2V 5B Híbrido")
     print(f"   Prompt: {args.prompt}")
-    print(f"   Resolução: {args.width}x{args.height}")
+    print(f"   Resoluçêo: {args.width}x{args.height}")
     print(f"   Frames: {args.frames} @ {args.fps} FPS")
-    print(f"   Duração: {duration_output:.2f} segundos")
+    print(f"   Duraçêo: {duration_output:.2f} segundos")
     print(f"   CFG: {args.cfg}")
     print(f"   Seed: {args.seed}")
     print()
@@ -163,14 +163,14 @@ Parâmetros recomendados:
     prompt_id = submit_workflow(workflow)
 
     if prompt_id:
-        print("✅ SUCESSO! Geração iniciada!")
+        print("✅ SUCESSO! Geraçêo iniciada!")
         print()
         print(f"   Prompt ID: {prompt_id}")
         print()
 
         # Estimar tempo (5B é mais rápido que 14B)
         estimated_time = int(args.frames * 1.5)  # ~1.5s por frame
-        print(f"⏳ Aguardando geração...")
+        print(f"⏳ Aguardando geraçêo...")
         print(f"   Tempo estimado: {estimated_time} segundos")
         print()
 
@@ -189,7 +189,7 @@ Parâmetros recomendados:
         print()
         print("Verificar:")
         print(f"  1. ComfyUI está rodando? curl {COMFYUI_URL}/system_stats")
-        print(f"  2. Modelos estão no lugar certo?")
+        print(f"  2. Modelos estêo no lugar certo?")
         print(f"     - UNet: ComfyUI/models/unet/wan2.2_ti2v_5B_fp16.safetensors")
         print(f"     - T5: ComfyUI/models/text_encoders/umt5_xxl_fp16.safetensors")
         print(f"     - VAE: ComfyUI/models/vae/wan2.2_vae.safetensors")

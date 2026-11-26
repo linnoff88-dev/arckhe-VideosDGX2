@@ -1,4 +1,4 @@
-# Análise de Risco: Integração SkyReels V3
+# Análise de Risco: Integraçêo SkyReels V3
 **Data:** 2026-02-22
 **Sistema atual:** ComfyUI + LTX-2 + Wan 2.2 (5B e 14B) + Interface Web v4.2
 
@@ -6,16 +6,16 @@
 
 ## 1. Resumo de Riscos
 
-| Nível de Risco | Categoria | Mitigação |
+| Nível de Risco | Categoria | Mitigaçêo |
 |----------------|-----------|-----------|
-| 🟢 **BAIXO** | Instalação isolada (venv separado) | ✅ Zero impacto |
+| 🟢 **BAIXO** | Instalaçêo isolada (venv separado) | ✅ Zero impacto |
 | 🟡 **MÉDIO** | Conflito de dependências (PyTorch) | ✅ Testável antes |
 | 🟡 **MÉDIO** | Consumo de disco (modelos grandes) | ✅ 1.7 TB livre |
 | 🟢 **BAIXO** | VRAM compartilhada (modelos simultâneos) | ✅ 128 GB suficiente |
-| 🔴 **ALTO** | Integração profunda no ComfyUI | ❌ NÃO FAZER ainda |
+| 🔴 **ALTO** | Integraçêo profunda no ComfyUI | ❌ NêO FAZER ainda |
 | 🟢 **BAIXO** | Wrapper CLI standalone | ✅ Isolamento total |
 
-**Conclusão:** Risco **BAIXO a MÉDIO** se feito corretamente (ambiente isolado, sem tocar no ComfyUI).
+**Conclusêo:** Risco **BAIXO a MÉDIO** se feito corretamente (ambiente isolado, sem tocar no ComfyUI).
 
 ---
 
@@ -26,7 +26,7 @@
 #### Risco
 - SkyReels V3 pode exigir versões específicas de PyTorch/CUDA diferentes do ComfyUI
 - Sistema atual: **PyTorch 2.10.0+cu130** em `comfyui-env`
-- SkyReels requer: **CUDA 12.8+** (temos 13.0 ✅) mas versão PyTorch não especificada
+- SkyReels requer: **CUDA 12.8+** (temos 13.0 ✅) mas versêo PyTorch nêo especificada
 
 #### Probabilidade
 🟡 **Média** — Repos novos frequentemente têm dependências rígidas
@@ -35,7 +35,7 @@
 - **Se instalar no mesmo venv (`comfyui-env`):** 🔴 ALTO — pode quebrar ComfyUI, Wan 2.2, LTX-2
 - **Se instalar em venv separado:** 🟢 ZERO — isolamento completo
 
-#### Mitigação
+#### Mitigaçêo
 ```bash
 # ✅ CORRETO: venv isolado
 cd /home/nmaldaner/projetos/VideosDGX
@@ -45,7 +45,7 @@ cd SkyReels-V3
 pip install -r requirements.txt
 
 # ❌ ERRADO: instalar no comfyui-env
-source comfyui-env/bin/activate  # NÃO FAZER ISSO
+source comfyui-env/bin/activate  # NêO FAZER ISSO
 pip install -r SkyReels-V3/requirements.txt  # RISCO ALTO
 ```
 
@@ -56,7 +56,7 @@ pip install -r SkyReels-V3/requirements.txt  # RISCO ALTO
 ### 2.2 Consumo de Disco
 
 #### Risco
-Modelos SkyReels V3 são grandes:
+Modelos SkyReels V3 sêo grandes:
 - R2V 14B: ~28 GB (estimativa)
 - V2V 14B: ~28 GB (pode compartilhar pesos com R2V?)
 - Talking 19B: ~38 GB
@@ -75,8 +75,8 @@ Modelos atuais: 222 GB
 #### Probabilidade
 🟢 **Baixa** — Muito espaço livre
 
-#### Mitigação
-- Baixar modelos sob demanda (não todos de uma vez)
+#### Mitigaçêo
+- Baixar modelos sob demanda (nêo todos de uma vez)
 - Remover duplicatas atuais (ex: `umt5_xxl_fp16.safetensors` 11 GB)
 - Monitorar com `df -h` antes de cada download
 
@@ -100,7 +100,7 @@ Se rodar SkyReels e Wan 2.2 14B ao mesmo tempo:
 - Jobs podem falhar silenciosamente
 - GPU pode ficar travada (requer reboot)
 
-#### Mitigação Automática
+#### Mitigaçêo Automática
 A interface web v4.2 já processa **jobs sequencialmente** via `queue_worker`:
 ```python
 def queue_worker():
@@ -116,7 +116,7 @@ def queue_worker():
 3. Wan termina → libera 90 GB
 4. SkyReels inicia → carrega 24 GB
 
-✅ **Sem conflito** — fila serializa execução.
+✅ **Sem conflito** — fila serializa execuçêo.
 
 #### Risco Residual
 Se usuário rodar **manualmente via CLI** enquanto interface está processando:
@@ -126,8 +126,8 @@ Se usuário rodar **manualmente via CLI** enquanto interface está processando:
 python3 SkyReels-V3/generate_video.py ...  # +24 GB = 114 GB → OOM
 ```
 
-#### Mitigação Final
-- **Documentar:** Não rodar SkyReels CLI durante jobs da interface
+#### Mitigaçêo Final
+- **Documentar:** Nêo rodar SkyReels CLI durante jobs da interface
 - **Ou:** Adicionar SkyReels à interface (uso gerenciado pela fila)
 
 **Status:** 🟡 **Risco médio mitigável** — fila resolve se integrado; documentar se standalone.
@@ -143,7 +143,7 @@ SkyReels pode:
 - Alterar configurações globais
 
 #### Probabilidade
-🟢 **Muito baixa** — SkyReels é standalone, não interage com ComfyUI
+🟢 **Muito baixa** — SkyReels é standalone, nêo interage com ComfyUI
 
 #### Estrutura de Diretórios Proposta
 ```
@@ -171,22 +171,22 @@ SkyReels pode:
 
 #### Risco
 SkyReels V3 lançado há **3 semanas** (29/01/2026):
-- Bugs não descobertos
+- Bugs nêo descobertos
 - API pode mudar (breaking changes)
-- Documentação incompleta
+- Documentaçêo incompleta
 - Dependências podem ter versões hard-coded que conflitam
 
 #### Probabilidade
-🟡 **Média a alta** — Repos novos são instáveis
+🟡 **Média a alta** — Repos novos sêo instáveis
 
 #### Impacto no Sistema Atual
 - **Se standalone:** 🟢 Zero — crashes só afetam o SkyReels
 - **Se integrado à interface web:** 🟡 Médio — pode travar a fila de jobs
 
-#### Mitigação
+#### Mitigaçêo
 1. **Fase de testes isolados** (1-2 semanas)
    - Rodar apenas via CLI standalone
-   - Não integrar à interface ainda
+   - Nêo integrar à interface ainda
    - Monitorar issues no GitHub
 
 2. **Wrapper defensivo** (se integrar)
@@ -210,7 +210,7 @@ SkyReels V3 lançado há **3 semanas** (29/01/2026):
 
 ## 3. Riscos Operacionais
 
-### 3.1 Complexidade de Manutenção
+### 3.1 Complexidade de Manutençêo
 
 #### Risco
 Sistema atual: 3 modelos (LTX-2, Wan 5B, Wan 14B) + ComfyUI
@@ -225,9 +225,9 @@ Com SkyReels: +3 task types (R2V, V2V, Talking) + nova stack
 #### Impacto
 🟡 **Médio** — Mais pontos de falha, mais tempo de debug
 
-#### Mitigação
+#### Mitigaçêo
 - Documentar tudo em `doc/SKYREELS_SETUP.md`
-- Scripts de inicialização padronizados
+- Scripts de inicializaçêo padronizados
 - Testes automatizados antes de updates
 
 ---
@@ -238,13 +238,13 @@ Com SkyReels: +3 task types (R2V, V2V, Talking) + nova stack
 SkyReels tem API diferente:
 - Flags CLI específicas (`--task_type`, `--ref_imgs`, etc.)
 - Parâmetros com nomes diferentes (vs. Wan/LTX)
-- Comportamentos não documentados
+- Comportamentos nêo documentados
 
 #### Impacto
 - Tempo para dominar: 4-8 horas
-- Possibilidade de uso incorreto → vídeos ruins → frustração
+- Possibilidade de uso incorreto → vídeos ruins → frustraçêo
 
-#### Mitigação
+#### Mitigaçêo
 - Criar `gerar_video_skyreels_r2v.py` wrapper simplificado
 - Documentar parâmetros testados e validados
 - Presets na interface web (igual Wan/LTX)
@@ -264,7 +264,7 @@ Modelos baixados do Hugging Face automaticamente:
 #### Probabilidade
 🟢 **Muito baixa** — Hugging Face é plataforma confiável, SkyworkAI é empresa legítima
 
-#### Mitigação
+#### Mitigaçêo
 - Verificar checksums se disponíveis
 - Baixar manualmente primeiro (teste) antes de automático
 - Monitorar logs de download
@@ -284,7 +284,7 @@ SkyReels pode:
 #### Análise
 Código é **open-source** — possível auditar antes de rodar.
 
-#### Mitigação
+#### Mitigaçêo
 - Revisar `generate_video.py` para chamadas de rede
 - Rodar com firewall bloqueando saída (exceto Hugging Face)
 - Verificar issues no GitHub sobre privacidade
@@ -293,7 +293,7 @@ Código é **open-source** — possível auditar antes de rodar.
 
 ---
 
-## 5. Plano de Mitigação Completo
+## 5. Plano de Mitigaçêo Completo
 
 ### Fase 1: Setup Seguro (Dia 1)
 ```bash
@@ -333,14 +333,14 @@ watch -n 1 nvidia-smi
 ls -lh outputs/
 ```
 
-### Fase 3: Validação (Dia 3-7)
+### Fase 3: Validaçêo (Dia 3-7)
 - [ ] Testar 3 task_types (R2V, V2V, Talking)
 - [ ] Medir VRAM real vs. estimado
 - [ ] Avaliar qualidade visual
-- [ ] Verificar tempo de geração
+- [ ] Verificar tempo de geraçêo
 - [ ] Procurar crashes/bugs
 
-### Fase 4: Decisão (Dia 7)
+### Fase 4: Decisêo (Dia 7)
 **SE testes positivos E sem crashes:**
 - [ ] Criar wrapper CLI simples
 - [ ] Adicionar à interface web v4.2 (experimental)
@@ -348,7 +348,7 @@ ls -lh outputs/
 
 **SE testes negativos OU muitos crashes:**
 - [ ] Arquivar em `projetos/VideosDGX/archived/SkyReels-V3/`
-- [ ] Esperar próxima versão (2-3 meses)
+- [ ] Esperar próxima versêo (2-3 meses)
 - [ ] Manter apenas modelos atuais
 
 ---
@@ -366,12 +366,12 @@ Antes de integrar SkyReels ao sistema:
 ### Durante Testes
 - [ ] ⚠️ ComfyUI continua rodando?
 - [ ] ⚠️ Interface web v4.2 responde?
-- [ ] ⚠️ VRAM não ultrapassa 120 GB?
-- [ ] ⚠️ Disco não ultrapassa 70% uso?
+- [ ] ⚠️ VRAM nêo ultrapassa 120 GB?
+- [ ] ⚠️ Disco nêo ultrapassa 70% uso?
 
-### Pós-Integração
+### Pós-Integraçêo
 - [ ] 🔍 Monitorar logs por 48h
-- [ ] 🔍 Verificar jobs não falharem mais que usual
+- [ ] 🔍 Verificar jobs nêo falharem mais que usual
 - [ ] 🔍 Confirmar galeria mostra vídeos SkyReels
 - [ ] 🔍 Testar cancelamento de jobs SkyReels
 
@@ -414,15 +414,15 @@ rm -rf ~/.cache/huggingface/hub/models--SkyworkAI--*
 
 ---
 
-## 8. Matriz de Decisão
+## 8. Matriz de Decisêo
 
-| Cenário | Ação Recomendada |
+| Cenário | Açêo Recomendada |
 |---------|------------------|
 | ✅ Testes bem-sucedidos + qualidade boa | Integrar como modelo experimental |
-| 🟡 Testes OK mas qualidade mediana | Manter standalone (sem integração) |
+| 🟡 Testes OK mas qualidade mediana | Manter standalone (sem integraçêo) |
 | 🟡 Bugs ocasionais mas recuperáveis | Wrapper defensivo + fallback |
-| 🔴 Crashes frequentes | Arquivar, esperar versão estável |
-| 🔴 Conflito de dependências grave | Não instalar (incompatível) |
+| 🔴 Crashes frequentes | Arquivar, esperar versêo estável |
+| 🔴 Conflito de dependências grave | Nêo instalar (incompatível) |
 
 ---
 
@@ -431,15 +431,15 @@ rm -rf ~/.cache/huggingface/hub/models--SkyworkAI--*
 ### Risco Geral: 🟡 **BAIXO-MÉDIO**
 
 **Desde que:**
-1. ✅ Instalação em venv separado
+1. ✅ Instalaçêo em venv separado
 2. ✅ Diretório isolado do ComfyUI
-3. ✅ Testes antes de integração
+3. ✅ Testes antes de integraçêo
 4. ✅ Wrapper defensivo se integrar
 5. ✅ Monitoramento por 48h pós-deploy
 
 ### O Que PODE Quebrar
 
-| Item | Probabilidade | Impacto | Recuperação |
+| Item | Probabilidade | Impacto | Recuperaçêo |
 |------|---------------|---------|-------------|
 | ComfyUI parar de funcionar | 🟢 Muito baixa | 🔴 Alto | ✅ Fácil (venv separado) |
 | Wan 2.2 / LTX-2 pararem | 🟢 Muito baixa | 🔴 Alto | ✅ Fácil (isolamento) |
@@ -447,32 +447,32 @@ rm -rf ~/.cache/huggingface/hub/models--SkyworkAI--*
 | Disco cheio | 🟢 Muito baixa | 🟡 Médio | ✅ Médio (remover modelos) |
 | OOM crash | 🟡 Média | 🟡 Médio | ✅ Fácil (restart GPU) |
 
-### O Que NÃO Pode Quebrar
+### O Que NêO Pode Quebrar
 
 ✅ **ComfyUI** — totalmente isolado
-✅ **Modelos atuais** — não são tocados
+✅ **Modelos atuais** — nêo sêo tocados
 ✅ **Jobs históricos** — arquivo separado
-✅ **Vídeos gerados** — diretório de output compartilhado (só adiciona, não remove)
+✅ **Vídeos gerados** — diretório de output compartilhado (só adiciona, nêo remove)
 
 ---
 
-## 10. Recomendação Final
+## 10. Recomendaçêo Final
 
 ### ✅ SEGURO PROSSEGUIR **SE:**
 1. Criar venv separado (`skyreels-env`)
-2. NÃO instalar no `comfyui-env`
+2. NêO instalar no `comfyui-env`
 3. Testar standalone por 3-7 dias
 4. Monitorar recursos (VRAM, disco)
 5. Ter plano de rollback documentado
 
-### ❌ NÃO PROSSEGUIR **SE:**
-1. Usuário não tem tempo para testes (urgência)
+### ❌ NêO PROSSEGUIR **SE:**
+1. Usuário nêo tem tempo para testes (urgência)
 2. Sistema atual está instável (resolver primeiro)
 3. Espaço em disco <200 GB livre
-4. Não há backup dos jobs atuais
+4. Nêo há backup dos jobs atuais
 
 ---
 
-**Conclusão:** O risco é **gerenciável e baixo** com as mitigações corretas. A arquitetura isolada (venv + diretório separado) garante que **mesmo no pior caso** (SkyReels quebrar completamente), o sistema atual **continua funcionando normalmente**.
+**Conclusêo:** O risco é **gerenciável e baixo** com as mitigações corretas. A arquitetura isolada (venv + diretório separado) garante que **mesmo no pior caso** (SkyReels quebrar completamente), o sistema atual **continua funcionando normalmente**.
 
 **Próximo passo seguro:** Setup em ambiente isolado conforme Fase 1 do plano.

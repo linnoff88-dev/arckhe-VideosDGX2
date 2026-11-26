@@ -1,9 +1,9 @@
 # Procedimentos Detalhados - Projeto VideosDGX
-## Documentação Técnica Completa com Timestamps
+## Documentaçêo Técnica Completa com Timestamps
 
 **Data**: 16 de Fevereiro de 2026
-**Duração total**: ~8 horas de trabalho
-**Status de geração de vídeos**: ❌ **NENHUM VÍDEO FOI GERADO COM SUCESSO**
+**Duraçêo total**: ~8 horas de trabalho
+**Status de geraçêo de vídeos**: ❌ **NENHUM VÍDEO FOI GERADO COM SUCESSO**
 
 ---
 
@@ -17,13 +17,13 @@ Apesar de:
 - ✅ Jobs aceitos
 - ✅ Modelos baixados (358GB+)
 
-**TODOS os testes de geração falharam:**
+**TODOS os testes de geraçêo falharam:**
 - LTX-2: Travou em 50% do carregamento
 - Wan 2.1: Erro torch.xpu
 - MAGI-1: Config.json inválido
 - Waver: Erro torch.xpu
 
-**Sistema está CONFIGURADO mas NÃO FUNCIONAL para geração de vídeos**
+**Sistema está CONFIGURADO mas NêO FUNCIONAL para geraçêo de vídeos**
 
 ---
 
@@ -31,12 +31,12 @@ Apesar de:
 
 ### Fase 1: Contexto e Planejamento (00:00 - 00:15)
 
-**00:00** - Início da sessão
+**00:00** - Início da sessêo
 ```
 Contexto carregado:
-- Sessão anterior: 4+ horas tentando Docker com diffusers (FALHOU)
-- Descoberta: ComfyUI é recomendação oficial NVIDIA
-- Containers Docker já UP desde sessão anterior
+- Sessêo anterior: 4+ horas tentando Docker com diffusers (FALHOU)
+- Descoberta: ComfyUI é recomendaçêo oficial NVIDIA
+- Containers Docker já UP desde sessêo anterior
 - Memória: 117GB/120GB VRAM já alocados (BLOQUEIO CRÍTICO)
 ```
 
@@ -52,7 +52,7 @@ Contexto carregado:
 
 **00:10** - Análise do generation_results.log
 ```
-DESCOBERTA: Jobs foram submetidos na sessão anterior:
+DESCOBERTA: Jobs foram submetidos na sessêo anterior:
 - LTX-2: Job ltx2-26252c62 (queued)
 - Wan 2.1: Job wan21-66eb1181 (queued)
 - MAGI-1: Job magi1-5d8c2647 (queued)
@@ -63,20 +63,20 @@ Status: Todos começaram como "queued", mas nenhum completou
 
 ---
 
-### Fase 2: Solicitação do Usuário (00:15)
+### Fase 2: Solicitaçêo do Usuário (00:15)
 
 **00:15** - Request recebido
 ```
 Usuário: "atualize o git e o readme"
 ```
 
-**Tarefa clara**: Atualizar documentação e versionamento
+**Tarefa clara**: Atualizar documentaçêo e versionamento
 
 ---
 
-### Fase 3: Atualização do README.md (00:15 - 00:45)
+### Fase 3: Atualizaçêo do README.md (00:15 - 00:45)
 
-**00:16** - Verificação de arquivos existentes
+**00:16** - Verificaçêo de arquivos existentes
 ```bash
 ls -la /home/nmaldaner/projetos/VideosDGX/README.md
 # Resultado: Arquivo existe (11484 bytes)
@@ -89,11 +89,11 @@ CHANGELOG.md, research-findings-dgx-spark-video-generation.md
 **00:18** - Leitura do README.md atual
 ```
 Conteúdo: 484 linhas
-Estrutura: Documentação Docker, Quick Start, APIs, Configuração
+Estrutura: Documentaçêo Docker, Quick Start, APIs, Configuraçêo
 FALTANDO: Status atual, testes realizados, issues conhecidos
 ```
 
-**00:20** - Primeira edição: Adição do "Status Atual"
+**00:20** - Primeira ediçêo: Adiçêo do "Status Atual"
 ```markdown
 Adicionado em linha 13:
 ## 🎯 Status Atual (2026-02-16)
@@ -116,13 +116,13 @@ Adicionado em linha 13:
 - test_ltx2_cpu.py
 ```
 
-**00:25** - Segunda edição: Adição de "Abordagens Alternativas"
+**00:25** - Segunda ediçêo: Adiçêo de "Abordagens Alternativas"
 ```markdown
 Adicionado antes de "Comandos Úteis":
 ## 🔄 Abordagens Alternativas
 
 ### ComfyUI (Recomendado pela NVIDIA)
-- Localização: ComfyUI/
+- Localizaçêo: ComfyUI/
 - Ambiente: comfyui-env
 - Custom nodes: ComfyUI-LTXVideo, MAGI-1
 - Modelos: checkpoints/, clip/, vae/
@@ -132,11 +132,11 @@ Adicionado antes de "Comandos Úteis":
 - Comando: python -m ltx_pipelines.distilled ...
 ```
 
-**00:30** - Terceira edição: Adição de "Testes Realizados"
+**00:30** - Terceira ediçêo: Adiçêo de "Testes Realizados"
 ```markdown
 ## 🧪 Testes Realizados
 
-### Geração de Vídeos (16/02/2026)
+### Geraçêo de Vídeos (16/02/2026)
 
 Prompt: "A cat walking on a beach at sunset..."
 
@@ -150,38 +150,38 @@ Prompt: "A cat walking on a beach at sunset..."
 **IMPORTANTE: NENHUM VÍDEO FOI GERADO COM SUCESSO**
 ```
 
-**00:35** - Quarta edição: Expansão do Troubleshooting
+**00:35** - Quarta ediçêo: Expansêo do Troubleshooting
 ```markdown
 Adicionados 5 erros detalhados:
 
 #### 1. torch.xpu AttributeError
 - Causa: ARM64 + CUDA tentando detectar Intel XPU
 - Soluções tentadas: ENV vars, monkey-patch, device_map
-- Status: NÃO RESOLVIDO
-- Workaround: Código DummyXPU (não testado ainda)
+- Status: NêO RESOLVIDO
+- Workaround: Código DummyXPU (nêo testado ainda)
 
 #### 2. CUDA Out of Memory
 - Causa: PID 2351379 usando 117GB/120GB
-- Solução: sudo kill -9 2351379 (requer sudo)
-- Status: NÃO RESOLVIDO (sem acesso sudo)
+- Soluçêo: sudo kill -9 2351379 (requer sudo)
+- Status: NêO RESOLVIDO (sem acesso sudo)
 
 #### 3. MAGI-1 Config Missing
 - Causa: model_type ausente em config.json
-- Solução: Adicionar chave ou re-download
-- Status: NÃO RESOLVIDO
+- Soluçêo: Adicionar chave ou re-download
+- Status: NêO RESOLVIDO
 
 #### 4. LTX-2 Loading Timeout
 - Causa: Possível OOM ou deadlock
 - Soluções: Aumentar timeout, restart
-- Status: NÃO RESOLVIDO
+- Status: NêO RESOLVIDO
 
 #### 5. Gemma Model Gated
 - Causa: google/gemma-3-12b-it é gated
-- Solução aplicada: Usar GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn
+- Soluçêo aplicada: Usar GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn
 - Status: ✅ RESOLVIDO
 ```
 
-**00:40** - Quinta edição: Atualização da estrutura de arquivos
+**00:40** - Quinta ediçêo: Atualizaçêo da estrutura de arquivos
 ```markdown
 Refletir estrutura real:
 - ComfyUI/ com subdiretorios
@@ -200,7 +200,7 @@ Seções novas: 4 (Status Atual, Alternativas, Testes, Issues expandidos)
 
 ---
 
-### Fase 4: Atualização do .gitignore (00:45 - 00:50)
+### Fase 4: Atualizaçêo do .gitignore (00:45 - 00:50)
 
 **00:46** - Leitura do .gitignore atual
 ```bash
@@ -208,7 +208,7 @@ cat .gitignore
 # 87 linhas, mas faltando exclusões importantes
 ```
 
-**00:47** - Primeira edição: Adicionar comfyui-env/
+**00:47** - Primeira ediçêo: Adicionar comfyui-env/
 ```diff
  # Virtual environments
  venv/
@@ -218,7 +218,7 @@ cat .gitignore
 +comfyui-env/
 ```
 
-**00:48** - Segunda edição: Adicionar repos clonados
+**00:48** - Segunda ediçêo: Adicionar repos clonados
 ```diff
  # Models (grandes demais para git)
  models/
@@ -249,8 +249,8 @@ git status
 #   modified: waver/model_config.py
 #
 # Untracked files:
-#   ComfyUI/ (não será commitado - .gitignore)
-#   LTX-2/ (não será commitado - .gitignore)
+#   ComfyUI/ (nêo será commitado - .gitignore)
+#   LTX-2/ (nêo será commitado - .gitignore)
 #   check_jobs_status.py
 #   generate_all_videos.py
 #   research-findings-dgx-spark-video-generation.md
@@ -288,12 +288,12 @@ git status
 # Total: 16 arquivos
 ```
 
-**00:55** - Criação do commit
+**00:55** - Criaçêo do commit
 ```bash
-git commit -m "Atualização completa: Docker containers funcionando, ComfyUI instalado, testes realizados
+git commit -m "Atualizaçêo completa: Docker containers funcionando, ComfyUI instalado, testes realizados
 
 ## Status dos Containers Docker
-Todos os 4 containers (ltx2, wan21, magi1, waver) estão UP e respondendo...
+Todos os 4 containers (ltx2, wan21, magi1, waver) estêo UP e respondendo...
 
 ## Modelos Baixados
 - LTX-2: 293GB completo...
@@ -311,23 +311,23 @@ Resultados dos testes documentados em generation_results.log
 ### ComfyUI...
 ### Python API Direta...
 
-## Documentação
+## Documentaçêo
 - README.md: Atualizado com status atual...
 
 Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 
 # Output:
-# [main 90d96c8] Atualização completa: Docker containers funcionando...
+# [main 90d96c8] Atualizaçêo completa: Docker containers funcionando...
 #  16 files changed, 1786 insertions(+), 27 deletions(-)
 ```
 
-**00:57** - Verificação do commit
+**00:57** - Verificaçêo do commit
 ```bash
 git log --oneline -5
-# 90d96c8 Atualização completa: Docker containers funcionando, ComfyUI instalado, testes realizados
+# 90d96c8 Atualizaçêo completa: Docker containers funcionando, ComfyUI instalado, testes realizados
 # 4070841 Usa LTX2Pipeline do pacote oficial ltx2
 # b23e5f9 Adiciona pacote oficial LTX-2 e corrige caminho do modelo
-# 96bc4dc Corrige bugs de quantização FP4 e seleção de modelo no frontend
+# 96bc4dc Corrige bugs de quantizaçêo FP4 e seleçêo de modelo no frontend
 # 486ab77 Atualiza IDs dos modelos para versões oficiais do HuggingFace
 
 git remote -v
@@ -345,30 +345,30 @@ Status: Pronto para git push origin main
 
 ### Fase 6: Background Tasks Começam a Reportar (01:00 - 08:00)
 
-**NOTA**: Estes tasks foram iniciados em sessão ANTERIOR e agora estão reportando conclusão.
+**NOTA**: Estes tasks foram iniciados em sessêo ANTERIOR e agora estêo reportando conclusêo.
 
 #### Task 1: Download LTX-2 FP8 (b6ce73a)
 ```
-Timestamp: ~03:00 (sessão anterior)
+Timestamp: ~03:00 (sessêo anterior)
 Comando: huggingface-cli download ...
 Resultado: ❌ FALHOU
 Erro: /bin/bash: line 1: huggingface-cli: command not found
-Causa: CLI não instalado no Python do sistema (só no venv)
+Causa: CLI nêo instalado no Python do sistema (só no venv)
 Impacto: Baixo - já temos modelo FP4 funcionando
 ```
 
 #### Task 2: Restart ComfyUI (b7c40bd)
 ```
-Timestamp: ~03:00 (sessão anterior)
+Timestamp: ~03:00 (sessêo anterior)
 Comando: kill/restart ComfyUI process
 Resultado: ✅ Completou
 Output: Vazio (processo terminado sem erros)
-Impacto: Nenhum - ComfyUI não estava sendo usado
+Impacto: Nenhum - ComfyUI nêo estava sendo usado
 ```
 
 #### Task 3: Download Gemma 3 (b2f92d7)
 ```
-Timestamp: ~03:00-03:05 (sessão anterior)
+Timestamp: ~03:00-03:05 (sessêo anterior)
 Comando: snapshot_download google/gemma-3-12b-it-qat-q4_0-unquantized
 Resultado: ❌ FALHOU
 Erro: 403 Client Error - Access to model is restricted
@@ -378,7 +378,7 @@ Output:
   Access to model google/gemma-3-12b-it-qat-q4_0-unquantized is restricted
 
 Causa: Modelo gated - requer aceitar termos no HuggingFace
-SOLUÇÃO APLICADA: Usar GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn (não-gated)
+SOLUÇêO APLICADA: Usar GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn (nêo-gated)
 Status: ✅ RESOLVIDO com alternativa
 ```
 
@@ -400,7 +400,7 @@ Resultado: ✅ COMPLETOU COM SUCESSO
 Output: Vazio (download concluído)
 Arquivo: gemma_3_12B_it_fp8_e4m3fn.safetensors
 Tamanho: 6.0GB
-Localização: ComfyUI/models/clip/
+Localizaçêo: ComfyUI/models/clip/
 Timestamp: Feb 16 03:52
 Tempo de download: ~3 minutos (desde 03:00)
 Taxa: ~2GB/min (~33MB/s)
@@ -414,7 +414,7 @@ Resultado: ✅ COMPLETOU COM SUCESSO
 Output: Vazio
 Arquivo: ltx-2-19b-dev-fp4_projections_only.safetensors
 Tamanho: 2.7GB
-Localização: ComfyUI/models/clip/
+Localizaçêo: ComfyUI/models/clip/
 Timestamp: Feb 16 03:38
 Tempo de download: 38 minutos
 Taxa: ~71MB/min (~1.2MB/s)
@@ -428,7 +428,7 @@ Resultado: ✅ COMPLETOU COM SUCESSO
 Output: Vazio
 Arquivo: LTX2_audio_vae_bf16.safetensors
 Tamanho: 208MB
-Localização: ComfyUI/models/vae/
+Localizaçêo: ComfyUI/models/vae/
 Timestamp: Feb 16 03:28
 Tempo de download: 28 minutos
 Taxa: ~7.4MB/min (lento, provavelmente servidor congestionado)
@@ -437,7 +437,7 @@ Taxa: ~7.4MB/min (lento, provavelmente servidor congestionado)
 #### Task 8: Check Progress 2min (b0930b2)
 ```
 Timestamp: 03:02
-Comando: Verificação de progresso após 2 minutos
+Comando: Verificaçêo de progresso após 2 minutos
 Resultado: ✅ Status capturado
 Output:
   Downloads ativos: 7
@@ -453,7 +453,7 @@ Análise: Todos os downloads progredindo normalmente
 #### Task 9: Check Progress 5min (b2136ed)
 ```
 Timestamp: 03:05
-Comando: Verificação após 3 minutos adicionais (5min total)
+Comando: Verificaçêo após 3 minutos adicionais (5min total)
 Resultado: ✅ Status capturado
 Output:
   Modelos finalizados:
@@ -469,7 +469,7 @@ Análise: Audio VAE completo, outros 3 grandes files ainda baixando
 #### Task 10: Check Progress 8min (bd1a1b6)
 ```
 Timestamp: 03:08
-Comando: Verificação após mais 3 minutos (8min total)
+Comando: Verificaçêo após mais 3 minutos (8min total)
 Resultado: ✅ Status capturado
 Output:
   Tamanhos atuais:
@@ -485,8 +485,8 @@ MARCO: Projections atingiu tamanho final de 2.7GB neste momento
 #### Task 11: Check if Projections Completed (bf504d7)
 ```
 Timestamp: 03:10
-Comando: Verificação específica do arquivo projections
-Resultado: ✅ Confirmação parcial
+Comando: Verificaçêo específica do arquivo projections
+Resultado: ✅ Confirmaçêo parcial
 Output:
   Tamanho mostrado: 2.7GB (2,863,095,680 bytes)
   Status: "Ainda baixando..." (arquivo sendo escrito)
@@ -507,7 +507,7 @@ Arquivos resultantes:
   - models_t5_umt5-xxl-enc-bf16.pth
   - config.json
 Tamanho total: 65GB
-Localização: /models/wan21/ (Docker volume)
+Localizaçêo: /models/wan21/ (Docker volume)
 Timestamps dos shards:
   - 00001-of-00006: Feb 16 04:43
   - 00002-of-00006: Feb 16 04:43
@@ -546,10 +546,10 @@ Timestamp: 03:44-03:48
 Comando: git clone SandAI-org/MAGI-1
 Resultado: ✅ COMPLETOU COM SUCESSO
 Output: "Cloning into 'MAGI-1'..."
-Localização: ComfyUI/custom_nodes/MAGI-1/
+Localizaçêo: ComfyUI/custom_nodes/MAGI-1/
 Tamanho: 17MB
 Conteúdo:
-  - comfyui/ (integração ComfyUI)
+  - comfyui/ (integraçêo ComfyUI)
   - inference/ (scripts)
   - example/ (workflows)
   - requirements.txt
@@ -577,12 +577,12 @@ DESCOBERTA IMPORTANTE: Gemma FP8 completou em apenas 3 minutos!
 ```
 Timestamp: ~03:00
 Comando: Tentativa de baixar encoder separadamente
-Resultado: ✅ Completou (mas não necessário)
+Resultado: ✅ Completou (mas nêo necessário)
 Output: "Wan 2.1 provavelmente usa formato PyTorch original.
          Vou baixar versões repackaged do Comfy-Org..."
 
 Nota: Encoder já estava sendo baixado como parte do repo Wan 2.1
-Status: Redundante, mas não causou problema
+Status: Redundante, mas nêo causou problema
 ```
 
 #### Task 18: Download Wan VAE (bd3dbcb)
@@ -592,7 +592,7 @@ Comando: Tentativa de baixar VAE separadamente
 Resultado: ✅ Completou
 Output: Vazio
 Nota: VAE já estava sendo baixado como parte do repo Wan 2.1
-Status: Redundante, mas não causou problema
+Status: Redundante, mas nêo causou problema
 ```
 
 #### Task 19: Retry Wan Text Encoder (b5f905c)
@@ -602,7 +602,7 @@ Comando: Retry com progresso visível
 Resultado: ✅ Completou
 Output: Vazio
 Nota: Encoder já estava presente desde primeiro download
-Status: Verificação redundante, confirmou presença
+Status: Verificaçêo redundante, confirmou presença
 ```
 
 #### Task 20: Retry Wan VAE (be355da)
@@ -612,13 +612,13 @@ Comando: Retry com progresso visível
 Resultado: ✅ Completou
 Output: Vazio (0 linhas)
 Nota: VAE já estava presente desde primeiro download
-Status: Verificação redundante, confirmou presença
+Status: Verificaçêo redundante, confirmou presença
 ```
 
 #### Task 21: Download All Models (b55413d)
 ```
 Timestamp: 03:07-06:49+ (~3-6 horas)
-Comando: Script massivo download_models.sh opção "5) Todos"
+Comando: Script massivo download_models.sh opçêo "5) Todos"
 Resultado: ✅ 3/4 MODELOS BAIXADOS
 
 Output detalhado:
@@ -676,14 +676,14 @@ Output detalhado:
   Repository Not Found for url:
     https://huggingface.co/api/models/FoundationVision/Waver/revision/main
   Invalid username or password.
-  Modelo pode não estar disponível. Será necessário configurar manualmente.
+  Modelo pode nêo estar disponível. Será necessário configurar manualmente.
   ✓ waver processado (com erro)
 
 ANÁLISE DETALHADA:
 - LTX-2: Download extremamente lento - grandes arquivos + shards
 - Wan 2.1: Razoável - menos arquivos, bem organizado
 - MAGI-1: Lento mas completou - muitos arquivos pequenos
-- Waver: FALHOU - repositório não existe ou é privado
+- Waver: FALHOU - repositório nêo existe ou é privado
 
 Taxa de sucesso: 75% (3/4 modelos)
 Tempo total estimado: 13+ horas de downloads paralelos
@@ -691,11 +691,11 @@ Tempo total estimado: 13+ horas de downloads paralelos
 
 ---
 
-### Fase 7: Criação do Relatório Final (01:00 - 01:30)
+### Fase 7: Criaçêo do Relatório Final (01:00 - 01:30)
 
 **01:00** - Usuário solicita: "salve este reatorio em um doc final"
 
-**01:02** - Início da criação do RELATORIO_FINAL.md
+**01:02** - Início da criaçêo do RELATORIO_FINAL.md
 ```
 Escopo decidido:
 - Sumário executivo
@@ -718,7 +718,7 @@ Conteúdo:
   - Detalhamento de 21 background tasks
   - 5 issues com diagnóstico completo
   - Timeline de 8+ horas
-  - Checklist de validação
+  - Checklist de validaçêo
   - Comandos úteis
 ```
 
@@ -734,7 +734,7 @@ git commit -m "Adiciona relatório final completo do projeto VideosDGX"
 
 ---
 
-### Fase 8: Solicitação de Procedimentos Detalhados (01:30)
+### Fase 8: Solicitaçêo de Procedimentos Detalhados (01:30)
 
 **01:30** - Usuário: "quero q salve todos os tempos e os procediemntos utilziados, tambem como resolveu os problemas. Voce rodou algum video apra ver se esta funcionando?"
 
@@ -744,10 +744,10 @@ git commit -m "Adiciona relatório final completo do projeto VideosDGX"
 
 ## 🔧 Procedimentos Técnicos Detalhados
 
-### Procedimento 1: Atualização do README.md
+### Procedimento 1: Atualizaçêo do README.md
 
 **Objetivo**: Documentar status atual do projeto
-**Duração**: 30 minutos
+**Duraçêo**: 30 minutos
 **Resultado**: ✅ Sucesso
 
 **Passo a passo**:
@@ -758,7 +758,7 @@ ls -la README.md
 # 2. Ler conteúdo atual
 # Usado: Read tool (Claude Code)
 
-# 3. Identificar gaps na documentação
+# 3. Identificar gaps na documentaçêo
 # - Falta: Status atual
 # - Falta: Testes realizados
 # - Falta: Issues conhecidos detalhados
@@ -777,21 +777,21 @@ ls -la README.md
 ```
 
 **Desafios**:
-- Organizar informação de múltiplas fontes
+- Organizar informaçêo de múltiplas fontes
 - Manter consistência de formato
 - Ser honesto sobre falhas (nenhum vídeo gerado)
 
 **Lições aprendidas**:
-- Documentação incremental funciona melhor
+- Documentaçêo incremental funciona melhor
 - Importante separar "funcionando" de "configurado"
 - Status honesto é melhor que otimista
 
 ---
 
-### Procedimento 2: Atualização do .gitignore
+### Procedimento 2: Atualizaçêo do .gitignore
 
 **Objetivo**: Evitar commit de arquivos grandes
-**Duração**: 5 minutos
+**Duraçêo**: 5 minutos
 **Resultado**: ✅ Sucesso
 
 **Passo a passo**:
@@ -799,19 +799,19 @@ ls -la README.md
 # 1. Ler .gitignore atual
 cat .gitignore
 
-# 2. Identificar diretórios grandes não excluídos
-# - ComfyUI/ (~50GB modelos + instalação)
+# 2. Identificar diretórios grandes nêo excluídos
+# - ComfyUI/ (~50GB modelos + instalaçêo)
 # - comfyui-env/ (~2GB venv Python)
 # - LTX-2/ (~500MB repo clonado)
 # - dgx-spark-playbooks/ (~100MB playbooks)
 
 # 3. Adicionar exclusões
-# Edit 1: comfyui-env/ em seção "Virtual environments"
-# Edit 2: ComfyUI/, LTX-2/, dgx-spark-playbooks/ em nova seção
+# Edit 1: comfyui-env/ em seçêo "Virtual environments"
+# Edit 2: ComfyUI/, LTX-2/, dgx-spark-playbooks/ em nova seçêo
 
 # 4. Verificar com git status
 git status
-# ComfyUI/ não aparece mais em Untracked files ✓
+# ComfyUI/ nêo aparece mais em Untracked files ✓
 ```
 
 **Importância**:
@@ -824,7 +824,7 @@ git status
 ### Procedimento 3: Git Staging e Commit
 
 **Objetivo**: Versionar mudanças de forma organizada
-**Duração**: 10 minutos
+**Duraçêo**: 10 minutos
 **Resultado**: ✅ Sucesso
 
 **Passo a passo**:
@@ -833,12 +833,12 @@ git status
 git status
 # 7 modified, vários untracked
 
-# 2. Seleção inteligente de arquivos
+# 2. Seleçêo inteligente de arquivos
 # INCLUIR:
 # - README.md (docs)
 # - .gitignore (config)
 # - Scripts de teste (*.py)
-# - Documentação (*.md)
+# - Documentaçêo (*.md)
 # - Mudanças em containers (ltx2/, waver/)
 
 # EXCLUIR (via .gitignore):
@@ -862,7 +862,7 @@ git commit -m "..." # Ver mensagem completa acima
 
 # 6. Verificar commit criado
 git log --oneline -1
-# 90d96c8 Atualização completa... ✓
+# 90d96c8 Atualizaçêo completa... ✓
 ```
 
 **Decisões de design**:
@@ -870,12 +870,12 @@ git log --oneline -1
   - Motivo: Mudanças relacionadas (status update)
 - Mensagem curta vs detalhada: DETALHADA
   - Motivo: Documentar trabalho de 8+ horas
-- Include logs: NÃO
+- Include logs: NêO
   - Motivo: Temporários, já documentados em README
 
 ---
 
-## ❌ Tentativas de Resolução de Problemas (TODAS FALHARAM)
+## ❌ Tentativas de Resoluçêo de Problemas (TODAS FALHARAM)
 
 ### Problema 1: torch.xpu AttributeError
 
@@ -897,10 +897,10 @@ PyTorch: 2.10.0+cu130
 Bibliotecas: diffusers, accelerate
 
 Causa raiz:
-- Código de detecção de hardware tenta acessar torch.xpu
-- torch.xpu é para Intel XPU devices (não existe em ARM64)
+- Código de detecçêo de hardware tenta acessar torch.xpu
+- torch.xpu é para Intel XPU devices (nêo existe em ARM64)
 - if hasattr(torch, 'xpu') and torch.xpu.is_available()
-  AttributeError porque torch.xpu não existe
+  AttributeError porque torch.xpu nêo existe
 ```
 
 **Tentativa 1**: Environment variables
@@ -910,7 +910,7 @@ ENV ACCELERATE_USE_XPU=0
 ENV PYTORCH_ENABLE_XPU=0
 
 Resultado: ❌ FALHOU
-Motivo: Código não checa ENV vars antes de acessar torch.xpu
+Motivo: Código nêo checa ENV vars antes de acessar torch.xpu
 ```
 
 **Tentativa 2**: Monkey-patching
@@ -924,8 +924,8 @@ if not hasattr(torch, 'xpu'):
             return False
     torch.xpu = DummyXPU()
 
-Resultado: ❌ NÃO TESTADO (não aplicado aos containers)
-Motivo: Requer rebuild dos containers, não foi feito
+Resultado: ❌ NêO TESTADO (nêo aplicado aos containers)
+Motivo: Requer rebuild dos containers, nêo foi feito
 ```
 
 **Tentativa 3**: device_map=None
@@ -933,17 +933,17 @@ Motivo: Requer rebuild dos containers, não foi feito
 # No código de loading:
 pipeline = Pipeline.from_pretrained(
     model_path,
-    device_map=None  # Evita auto-detecção
+    device_map=None  # Evita auto-detecçêo
 )
 
-Resultado: ❌ NÃO TESTADO
+Resultado: ❌ NêO TESTADO
 Motivo: Erro ocorre antes do from_pretrained
 ```
 
-**Status**: ❌ NÃO RESOLVIDO
-**Bloqueio**: Wan 2.1 e Waver não conseguem gerar vídeos
-**Solução necessária**:
-1. Aplicar monkey-patch no código de inicialização
+**Status**: ❌ NêO RESOLVIDO
+**Bloqueio**: Wan 2.1 e Waver nêo conseguem gerar vídeos
+**Soluçêo necessária**:
+1. Aplicar monkey-patch no código de inicializaçêo
 2. Rebuild dos containers
 3. Testar novamente
 
@@ -960,7 +960,7 @@ RuntimeError: CUDA out of memory. Tried to allocate 20.00 MiB
 **Quando ocorre**:
 - Tentativa de iniciar ComfyUI
 - Tentativa de rodar Python API direta
-- Qualquer operação CUDA no host
+- Qualquer operaçêo CUDA no host
 
 **Diagnóstico**:
 ```bash
@@ -981,7 +981,7 @@ echo 3 > /proc/sys/vm/drop_caches
 # Permission denied
 ```
 
-**Tentativas de resolução**:
+**Tentativas de resoluçêo**:
 
 **Tentativa 1**: torch.cuda.empty_cache()
 ```python
@@ -990,16 +990,16 @@ torch.cuda.empty_cache()
 # Libera cache do PyTorch
 
 Resultado: ❌ FALHOU
-Motivo: Memória está alocada por outro processo, não por PyTorch
+Motivo: Memória está alocada por outro processo, nêo por PyTorch
 ```
 
 **Tentativa 2**: ComfyUI --lowvram flag
 ```bash
 python main.py --lowvram --cpu
-# Flags de otimização de memória
+# Flags de otimizaçêo de memória
 
 Resultado: ❌ FALHOU
-Motivo: Erro ocorre durante inicialização, antes das flags terem efeito
+Motivo: Erro ocorre durante inicializaçêo, antes das flags terem efeito
 ```
 
 **Tentativa 3**: Kill processo sem sudo
@@ -1011,14 +1011,14 @@ pkill -9 -u root
 # Resultado: Operation not permitted
 ```
 
-**Status**: ❌ NÃO RESOLVIDO
-**Bloqueio**: ComfyUI e Python API não podem rodar no host
-**Solução necessária**:
+**Status**: ❌ NêO RESOLVIDO
+**Bloqueio**: ComfyUI e Python API nêo podem rodar no host
+**Soluçêo necessária**:
 ```bash
 # Requer acesso sudo:
 sudo kill -9 2351379
 sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
-nvidia-smi  # Verificar liberação
+nvidia-smi  # Verificar liberaçêo
 ```
 
 ---
@@ -1043,37 +1043,37 @@ docker exec videosdgx-magi1 ls -la /models/magi1/
 
 # 2. Verificar config.json
 docker exec videosdgx-magi1 cat /models/magi1/models--*/snapshots/*/config.json
-# (não executado - pendente)
+# (nêo executado - pendente)
 
 # 3. Verificar completude do download
 docker exec videosdgx-magi1 du -sh /models/magi1/
 # (verificar tamanho esperado)
 ```
 
-**Tentativas de resolução**:
+**Tentativas de resoluçêo**:
 
-**Tentativa 1**: Verificação manual
+**Tentativa 1**: Verificaçêo manual
 ```bash
-# Proposto mas não executado:
+# Proposto mas nêo executado:
 docker exec videosdgx-magi1 cat /models/magi1/config.json
 # Ver se model_type está presente
 
-Resultado: ❌ NÃO EXECUTADO
-Motivo: Falta de tempo, priorizou documentação
+Resultado: ❌ NêO EXECUTADO
+Motivo: Falta de tempo, priorizou documentaçêo
 ```
 
 **Tentativa 2**: Re-download
 ```bash
-# Proposto mas não executado:
+# Proposto mas nêo executado:
 docker exec videosdgx-magi1 huggingface-cli download sand-ai/MAGI-1 --local-dir /models/magi1
 
-Resultado: ❌ NÃO EXECUTADO
-Motivo: Download original levou 3h31min, não foi refeito
+Resultado: ❌ NêO EXECUTADO
+Motivo: Download original levou 3h31min, nêo foi refeito
 ```
 
-**Status**: ❌ NÃO RESOLVIDO
-**Bloqueio**: MAGI-1 não consegue inicializar modelo
-**Solução necessária**:
+**Status**: ❌ NêO RESOLVIDO
+**Bloqueio**: MAGI-1 nêo consegue inicializar modelo
+**Soluçêo necessária**:
 1. Verificar config.json
 2. Se ausente, adicionar manualmente:
    ```json
@@ -1093,14 +1093,14 @@ Motivo: Download original levou 3h31min, não foi refeito
 Job ltx2-26252c62 iniciado
 Carregamento de checkpoint: 4/8 shards (50%)
 ... [sem progresso por >10 minutos]
-Query status: Job não encontrado
+Query status: Job nêo encontrado
 ```
 
 **Quando ocorre**:
 - Durante carregamento do modelo LTX-2 (41GB)
-- Após aceitar job de geração
+- Após aceitar job de geraçêo
 
-**Diagnóstico proposto (não executado)**:
+**Diagnóstico proposto (nêo executado)**:
 ```bash
 # 1. Ver logs do container
 docker logs videosdgx-ltx2 --tail 200
@@ -1115,7 +1115,7 @@ docker exec videosdgx-ltx2 ps aux
 # Ver se processo travou ou ainda ativo
 ```
 
-**Tentativas de resolução**:
+**Tentativas de resoluçêo**:
 
 **Tentativa 1**: Aumentar timeout
 ```python
@@ -1125,7 +1125,7 @@ max_iterations = 60  # 10 minutos
 # Proposto aumentar para:
 max_iterations = 120  # 20 minutos
 
-Resultado: ❌ NÃO APLICADO
+Resultado: ❌ NêO APLICADO
 Motivo: Sem evidência de que só é lento (pode estar travado)
 ```
 
@@ -1134,11 +1134,11 @@ Motivo: Sem evidência de que só é lento (pode estar travado)
 # Proposto:
 docker-compose restart ltx2
 
-Resultado: ❌ NÃO EXECUTADO
+Resultado: ❌ NêO EXECUTADO
 Motivo: Pode perder estado/debug info
 ```
 
-**Tentativa 3**: Reduzir resolução
+**Tentativa 3**: Reduzir resoluçêo
 ```python
 # Proposto: Testar com config mais leve
 {
@@ -1147,12 +1147,12 @@ Motivo: Pode perder estado/debug info
   "num_inference_steps": 4  # ao invés de 8
 }
 
-Resultado: ❌ NÃO TESTADO
+Resultado: ❌ NêO TESTADO
 Motivo: Job original ainda processando
 ```
 
-**Status**: ❌ NÃO RESOLVIDO
-**Bloqueio**: LTX-2 não completa geração de vídeos
+**Status**: ❌ NêO RESOLVIDO
+**Bloqueio**: LTX-2 nêo completa geraçêo de vídeos
 **Possíveis causas**:
 1. OOM durante loading de 41GB checkpoint
 2. Deadlock em multi-threading
@@ -1174,9 +1174,9 @@ Access to model is restricted and you are not in the authorized list.
 - Durante download do text encoder para LTX-2
 - Background task b2f92d7
 
-**Solução aplicada**:
+**Soluçêo aplicada**:
 ```bash
-# 1. Identificar modelo alternativo não-gated
+# 1. Identificar modelo alternativo nêo-gated
 # Pesquisa: "LTX-2 gemma encoder alternative"
 # Encontrado: GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn
 
@@ -1196,7 +1196,7 @@ huggingface-cli download GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn \
 
 **Por que funcionou**:
 - GitMylo é conta community que hospeda modelos convertidos
-- Não é gated (acesso público)
+- Nêo é gated (acesso público)
 - Formato compatível com LTX-2 (testado pela comunidade)
 
 **Status**: ✅ RESOLVIDO COMPLETAMENTE
@@ -1204,12 +1204,12 @@ huggingface-cli download GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn \
 
 ---
 
-## 🎥 Tentativa de Geração de Vídeos (TODAS FALHARAM)
+## 🎥 Tentativa de Geraçêo de Vídeos (TODAS FALHARAM)
 
 ### Tentativa 1: generate_all_videos.py
 
 **Data/Hora**: 16/02/2026 ~07:04-07:05
-**Duração**: ~1-2 minutos (apenas submissão de jobs)
+**Duraçêo**: ~1-2 minutos (apenas submissêo de jobs)
 **Script usado**: generate_all_videos.py
 
 **Comando**:
@@ -1223,7 +1223,7 @@ python generate_all_videos.py
  golden hour lighting, 4k quality"
 ```
 
-**Configuração**:
+**Configuraçêo**:
 ```python
 payload = {
     "prompt": TEST_PROMPT,
@@ -1305,7 +1305,7 @@ Problema subsequente: ❌ torch.xpu AttributeError
 ```
 
 **Resumo da tentativa**:
-- Submissão: ✅ 4/4 jobs aceitos
+- Submissêo: ✅ 4/4 jobs aceitos
 - Processamento: ❌ 0/4 completaram
 - Vídeos gerados: ❌ NENHUM
 
@@ -1314,7 +1314,7 @@ Problema subsequente: ❌ torch.xpu AttributeError
 ### Tentativa 2: check_jobs_status.py (Monitoramento)
 
 **Data/Hora**: 16/02/2026 ~07:05-07:15
-**Duração**: ~10 minutos (até timeout)
+**Duraçêo**: ~10 minutos (até timeout)
 **Script usado**: check_jobs_status.py
 
 **Comando**:
@@ -1322,7 +1322,7 @@ Problema subsequente: ❌ torch.xpu AttributeError
 python check_jobs_status.py
 ```
 
-**Configuração**:
+**Configuraçêo**:
 ```python
 max_iterations = 60  # 10 minutos total
 intervalo = 10  # segundos entre checks
@@ -1330,7 +1330,7 @@ intervalo = 10  # segundos entre checks
 
 **Output observado**:
 ```
-Monitorando geração de vídeos...
+Monitorando geraçêo de vídeos...
 ================================================================================
 
 [1/60] Verificando status...
@@ -1357,7 +1357,7 @@ Monitorando geração de vídeos...
 ...
 
 [10/60] Verificando status...
-  LTX-2        - unknown      Status: Job não encontrado
+  LTX-2        - unknown      Status: Job nêo encontrado
 
 ⏱ LTX-2 timeout ou job perdido após 10 minutos
 ```
@@ -1372,9 +1372,9 @@ Monitorando geração de vídeos...
 
 ---
 
-### Tentativa 3: ComfyUI (NÃO EXECUTADA)
+### Tentativa 3: ComfyUI (NêO EXECUTADA)
 
-**Motivo**: CUDA OOM bloqueou inicialização do ComfyUI
+**Motivo**: CUDA OOM bloqueou inicializaçêo do ComfyUI
 
 **Tentativa planejada**:
 ```bash
@@ -1390,14 +1390,14 @@ Tried to allocate 20.00 MiB
 117.00 GiB already allocated; 3.00 GiB free
 ```
 
-**Status**: ❌ NÃO EXECUTADA
+**Status**: ❌ NêO EXECUTADA
 **Bloqueio**: CUDA OOM no host
 
 ---
 
-### Tentativa 4: Python API Direta (NÃO EXECUTADA)
+### Tentativa 4: Python API Direta (NêO EXECUTADA)
 
-**Motivo**: CUDA OOM bloqueou execução da API Python
+**Motivo**: CUDA OOM bloqueou execuçêo da API Python
 
 **Comando planejado**:
 ```bash
@@ -1411,7 +1411,7 @@ python -m ltx_pipelines.distilled \
 
 **Erro esperado**: CUDA OOM (mesmo do ComfyUI)
 
-**Status**: ❌ NÃO EXECUTADA
+**Status**: ❌ NêO EXECUTADA
 **Bloqueio**: CUDA OOM no host
 
 ---
@@ -1419,8 +1419,8 @@ python -m ltx_pipelines.distilled \
 ## 📊 Estatísticas Finais
 
 ### Tempo Total
-- **Sessão atual**: ~8 horas
-- **Sessão anterior**: 4+ horas
+- **Sessêo atual**: ~8 horas
+- **Sessêo anterior**: 4+ horas
 - **Total**: 12+ horas de trabalho
 
 ### Downloads
@@ -1435,7 +1435,7 @@ python -m ltx_pipelines.distilled \
   - 232374f: 1 arquivo, 833 linhas
 - **Total versionado**: 17 arquivos, 2619+ linhas
 
-### Tentativas de Geração
+### Tentativas de Geraçêo
 - **Jobs submetidos**: 4
 - **Jobs aceitos**: 4 (100%)
 - **Jobs completados**: 0 (0%)
@@ -1448,33 +1448,33 @@ python -m ltx_pipelines.distilled \
 
 ---
 
-## 🎯 Conclusão Honesta
+## 🎯 Conclusêo Honesta
 
 ### O que FUNCIONA ✅
 1. Infraestrutura Docker (4 containers UP)
 2. APIs REST (health checks respondendo)
 3. Job submission (aceita requisições)
 4. Downloads (358GB+ modelos baixados)
-5. Documentação (completa e honesta)
+5. Documentaçêo (completa e honesta)
 
-### O que NÃO FUNCIONA ❌
-1. **Geração de vídeos** - NENHUM vídeo foi gerado
+### O que NêO FUNCIONA ❌
+1. **Geraçêo de vídeos** - NENHUM vídeo foi gerado
 2. **LTX-2** - Trava em 50% do loading
 3. **Wan 2.1** - torch.xpu error
 4. **MAGI-1** - Config.json inválido
-5. **Waver** - torch.xpu error + modelo não baixado
+5. **Waver** - torch.xpu error + modelo nêo baixado
 6. **ComfyUI** - Bloqueado por CUDA OOM
 7. **Python API** - Bloqueado por CUDA OOM
 
 ### Status Real do Projeto
-- **Configuração**: 90% completo
+- **Configuraçêo**: 90% completo
 - **Funcionalidade**: 20% operacional
-- **Geração de vídeos**: 0% funcional
+- **Geraçêo de vídeos**: 0% funcional
 
 ### Próximos Passos Críticos
 1. **Resolver CUDA OOM** (requer sudo)
 2. **Fix torch.xpu** (rebuild containers)
-3. **Testar geração** real de vídeos
+3. **Testar geraçêo** real de vídeos
 4. **Validar qualidade** dos vídeos
 
 ### Estimativa de Tempo para Sistema Funcional
@@ -1483,8 +1483,8 @@ python -m ltx_pipelines.distilled \
 
 ---
 
-**Este documento é uma representação HONESTA e COMPLETA de todo o trabalho realizado, incluindo todas as falhas e limitações do sistema atual.**
+**Este documento é uma representaçêo HONESTA e COMPLETA de todo o trabalho realizado, incluindo todas as falhas e limitações do sistema atual.**
 
-**Data de criação**: 16 de Fevereiro de 2026
+**Data de criaçêo**: 16 de Fevereiro de 2026
 **Autor**: Claude Sonnet 4.5
-**Versão**: 1.0 - Procedimentos Detalhados
+**Versêo**: 1.0 - Procedimentos Detalhados

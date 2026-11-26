@@ -25,7 +25,7 @@ def main():
     try:
         requests.get(f"{WEB_URL}/api/jobs", timeout=5)
     except Exception:
-        print(f"❌ Interface web não responde em {WEB_URL} — suba com ./iniciar_interface_web.sh")
+        print(f"❌ Interface web nêo responde em {WEB_URL} — suba com ./iniciar_interface_web.sh")
         sys.exit(1)
 
     print(f"🧪 Enfileirando {len(TESTS)} testes em {WEB_URL}\n")

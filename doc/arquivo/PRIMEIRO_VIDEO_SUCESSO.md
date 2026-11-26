@@ -11,30 +11,30 @@
 **Arquivo**: `ComfyUI/output/PRIMEIRO_VIDEO_LTX2_OFICIAL_00001_.mp4`
 
 ### Especificações Técnicas
-- **Resolução**: 512x512 pixels
+- **Resoluçêo**: 512x512 pixels
 - **FPS**: 24 frames por segundo
 - **Frames**: 49 frames
-- **Duração**: 2.04 segundos
+- **Duraçêo**: 2.04 segundos
 - **Formato**: MP4 (vídeo + áudio)
 - **Tamanho**: 62KB
 - **Prompt**: "A red ball bouncing on white background, simple smooth animation, 4k quality"
 
 ---
 
-## 🔧 Configuração que Funcionou
+## 🔧 Configuraçêo que Funcionou
 
 ### Modelos Instalados
 
 1. **LTX-2 Principal** (19B Distilled)
    - Arquivo: `ltx-2-19b-distilled.safetensors`
-   - Localização: `ComfyUI/models/checkpoints/`
+   - Localizaçêo: `ComfyUI/models/checkpoints/`
    - Tamanho: ~39GB
 
 2. **Gemma Text Encoder** (CRÍTICO!)
    - Modelo: `google/gemma-3-12b-it-qat-q4_0-unquantized`
-   - Localização: `ComfyUI/models/text_encoders/gemma-3-12b-it-qat-q4_0-unquantized/`
+   - Localizaçêo: `ComfyUI/models/text_encoders/gemma-3-12b-it-qat-q4_0-unquantized/`
    - Tamanho: 22.7GB (5 shards)
-   - **IMPORTANTE**: Deve ser especificamente a versão QAT (Quantization-Aware Training)
+   - **IMPORTANTE**: Deve ser especificamente a versêo QAT (Quantization-Aware Training)
 
 ### Workflow JSON
 
@@ -76,19 +76,19 @@
 ### Problema 1: SafetensorError com Modelo FP8
 **Erro**: `Error while deserializing header: incomplete metadata, file not fully covered`
 **Causa**: Modelo FP8 de terceiros (`gemma_3_12B_it_fp8_e4m3fn.safetensors`) incompatível
-**Solução**: Usar modelo oficial do HuggingFace
+**Soluçêo**: Usar modelo oficial do HuggingFace
 
 ### Problema 2: SafetensorError com Modelo Base
 **Tentativa**: `google/gemma-3-12b-it` (modelo base, 22.7GB)
 **Resultado**: Mesmo erro de SafetensorError
-**Causa**: ComfyUI-LTXVideo requer especificamente a versão QAT
+**Causa**: ComfyUI-LTXVideo requer especificamente a versêo QAT
 
 ### Problema 3: Modelo Correto Mas Path Resolution Incorreto
 **Erro**: Código encontrava arquivos de diretórios antigos
 **Causa**: Múltiplos diretórios Gemma em `text_encoders/`
-**Solução**: Remover diretórios conflitantes, manter apenas o QAT
+**Soluçêo**: Remover diretórios conflitantes, manter apenas o QAT
 
-### ✅ Solução Final
+### ✅ Soluçêo Final
 **Modelo**: `google/gemma-3-12b-it-qat-q4_0-unquantized`
 **Path**: `gemma-3-12b-it-qat-q4_0-unquantized/model-00001-of-00005.safetensors`
 **Resultado**: Carregamento bem-sucedido, vídeo gerado!
@@ -97,7 +97,7 @@
 
 ## 📊 Performance
 
-### Tempo de Geração
+### Tempo de Geraçêo
 - **Total**: ~77 segundos
 - **Carregamento do modelo**: ~10s (primeira vez)
 - **Text encoding**: ~5s
@@ -145,7 +145,7 @@ print(response.json())
 EOF
 ```
 
-### 3. Monitorar Geração
+### 3. Monitorar Geraçêo
 ```bash
 # Log em tempo real
 tail -f /path/to/comfyui_server.log
@@ -159,13 +159,13 @@ ls -lh /path/to/ComfyUI/output/
 ## 📝 Lições Aprendidas
 
 ### ✅ O Que Funciona
-1. Modelo Gemma **QAT** (não FP8, não base)
+1. Modelo Gemma **QAT** (nêo FP8, nêo base)
 2. Path deve incluir um shard: `gemma-path/model-00001-of-00005.safetensors`
 3. Diretório `text_encoders/` deve ter apenas o modelo correto
 4. Tokenizers e configs devem estar no mesmo diretório dos shards
 5. `batch_size` é obrigatório em latent nodes
 
-### ❌ O Que NÃO Funciona
+### ❌ O Que NêO Funciona
 1. Modelos FP8 de terceiros (GitMylo, etc.)
 2. Modelo base `google/gemma-3-12b-it`
 3. Passar diretório em vez de arquivo .safetensors
@@ -173,7 +173,7 @@ ls -lh /path/to/ComfyUI/output/
 5. Symlinks para modelos incompatíveis
 
 ### 🎯 Requisitos Críticos
-- **Autenticação HuggingFace**: Necessária para baixar Gemma
+- **Autenticaçêo HuggingFace**: Necessária para baixar Gemma
 - **Espaço em disco**: ~65GB livres (modelos + cache)
 - **RAM**: Mínimo 32GB para carregar ambos os modelos
 - **ComfyUI-LTXVideo**: Custom node instalado e atualizado
@@ -191,12 +191,12 @@ ls -lh /path/to/ComfyUI/output/
 ### Otimizações
 - [ ] Implementar cache de modelo (evitar reload)
 - [ ] Batch processing de múltiplos prompts
-- [ ] Quantização FP8 do LTX-2 principal (reduzir uso de RAM)
-- [ ] Pipeline automático para produção em massa
+- [ ] Quantizaçêo FP8 do LTX-2 principal (reduzir uso de RAM)
+- [ ] Pipeline automático para produçêo em massa
 
-### Integração
+### Integraçêo
 - [ ] API REST wrapper com FastAPI
-- [ ] Interface web para submissão de jobs
+- [ ] Interface web para submissêo de jobs
 - [ ] Fila de processamento (Redis + Celery)
 - [ ] Sistema de preview/thumbnails
 
@@ -217,15 +217,15 @@ ls -lh /path/to/ComfyUI/output/
 
 ---
 
-## 🎉 Conclusão
+## 🎉 Conclusêo
 
-**MISSÃO CUMPRIDA!**
+**MISSêO CUMPRIDA!**
 
 O DGX Spark 2026 está oficialmente gerando vídeos de alta qualidade usando o modelo LTX-2 19B. A infraestrutura está pronta para:
 
-- ✅ Produção de vídeos sob demanda
-- ✅ Experimentação com diferentes modelos
-- ✅ Desenvolvimento de aplicações de geração de vídeo
+- ✅ Produçêo de vídeos sob demanda
+- ✅ Experimentaçêo com diferentes modelos
+- ✅ Desenvolvimento de aplicações de geraçêo de vídeo
 - ✅ Pesquisa em video LLMs
 
 **Primeiro vídeo gerado**: 16/02/2026 às 12:53

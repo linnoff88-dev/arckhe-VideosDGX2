@@ -26,7 +26,7 @@ python3 -c "import websocket" 2>/dev/null || {
 
 # Verificar se ComfyUI está rodando
 if ! curl -s http://127.0.0.1:8188/system_stats > /dev/null 2>&1; then
-    echo "⚠️  ComfyUI não está rodando. Iniciando..."
+    echo "⚠️  ComfyUI nêo está rodando. Iniciando..."
     nohup python3 ComfyUI/main.py --listen 0.0.0.0 --highvram > comfyui_server.log 2>&1 &
     sleep 5
     echo "✅ ComfyUI iniciado (porta 8188)"

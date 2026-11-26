@@ -1,5 +1,5 @@
 # Dependências da interface web (web_interface.py).
-# A geração de vídeo roda no ComfyUI (ambiente comfyui-env, com requirements próprio).
+# A geraçêo de vídeo roda no ComfyUI (ambiente comfyui-env, com requirements próprio).
 # Versões congeladas do ambiente funcional em 2026-06-14 (Python 3.12, DGX Spark).
 #
 # Instalar:  pip install -r requirements.txt

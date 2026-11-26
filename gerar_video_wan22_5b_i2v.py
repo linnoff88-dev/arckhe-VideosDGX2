@@ -100,7 +100,7 @@ def main():
     print(f"   Prompt: {args.prompt}")
 
     prompt_id = submeter(workflow)
-    print(f"✅ SUCESSO! Geração iniciada!")
+    print(f"✅ SUCESSO! Geraçêo iniciada!")
     print(f"   Prompt ID: {prompt_id}")
     print(f"📂 Output: {OUTPUT_DIR}/{args.output}_*.mp4")
 

@@ -12,7 +12,7 @@ sleep 2
 # Limpar cache GPU se possível
 echo ""
 echo "2️⃣ Limpando cache..."
-python3 -c "import torch; torch.cuda.empty_cache(); print('   ✅ Cache CUDA limpo')" 2>/dev/null || echo "   ⚠️  Não foi possível limpar cache"
+python3 -c "import torch; torch.cuda.empty_cache(); print('   ✅ Cache CUDA limpo')" 2>/dev/null || echo "   ⚠️  Nêo foi possível limpar cache"
 
 sleep 1
 

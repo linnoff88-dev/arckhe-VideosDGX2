@@ -1,8 +1,8 @@
-# Plano: Implementação do Wan 2.2 no DGX Spark
+# Plano: Implementaçêo do Wan 2.2 no DGX Spark
 
 ## Context
 
-O usuário está atualmente configurando Wan 2.1 14B no DGX Spark 2026 e quer entender as diferenças com Wan 2.2 para decidir qual implementar. O Wan 2.1 está 99% pronto (aguardando download do T5 encoder safetensors). É necessário analisar Wan 2.2, comparar com 2.1, e criar um plano de implementação que não afete o LTX-2 já funcional.
+O usuário está atualmente configurando Wan 2.1 14B no DGX Spark 2026 e quer entender as diferenças com Wan 2.2 para decidir qual implementar. O Wan 2.1 está 99% pronto (aguardando download do T5 encoder safetensors). É necessário analisar Wan 2.2, comparar com 2.1, e criar um plano de implementaçêo que nêo afete o LTX-2 já funcional.
 
 **Hardware disponível:**
 - DGX Spark 2026
@@ -17,7 +17,7 @@ O usuário está atualmente configurando Wan 2.1 14B no DGX Spark 2026 e quer en
 
 ---
 
-## Wan 2.1 vs Wan 2.2: Comparação Técnica
+## Wan 2.1 vs Wan 2.2: Comparaçêo Técnica
 
 ### Arquitetura
 
@@ -25,7 +25,7 @@ O usuário está atualmente configurando Wan 2.1 14B no DGX Spark 2026 e quer en
 |---------|---------|---------|
 | **Arquitetura** | Diffusion Transformer denso | Mixture-of-Experts (MoE) |
 | **Parâmetros** | 14B (todos ativos) | 27B total, 14B ativos por etapa |
-| **Especialização** | Um modelo único | Dois experts: High Noise + Low Noise |
+| **Especializaçêo** | Um modelo único | Dois experts: High Noise + Low Noise |
 | **Workflow** | Single sampler | Dual sampler (2 modelos) |
 
 ### Modelos e Componentes
@@ -46,7 +46,7 @@ Componentes:
 - wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors (~35 GB) - expert baixo ruído
 - wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors (~35 GB) - expert alto ruído
 - umt5_xxl_fp8_e4m3fn_scaled.safetensors (6.74 GB) - text encoder (MESMO do 2.1)
-- wan2.2_vae.safetensors (~500 MB) - VAE novo com compressão 64x
+- wan2.2_vae.safetensors (~500 MB) - VAE novo com compressêo 64x
 
 Total: ~77 GB
 ```
@@ -67,11 +67,11 @@ Total: ~27 GB
 |---------|---------|---------|
 | **Text-to-Video** | ✅ Sim | ✅ Sim (melhorado) |
 | **Image-to-Video** | ⚠️ Limitado | ✅ Modelo dedicado (I2V-A14B) |
-| **First-Last Frame** | ❌ Não | ✅ Sim (exclusivo) |
-| **Audio-Driven** | ❌ Não | ✅ Sim (S2V-14B) |
-| **Character Animation** | ❌ Não | ✅ Sim (Animate-14B) |
-| **Geração de texto em cena** | ✅ Sim | ✅ Sim (melhorado) |
-| **Controle cinematográfico** | ⚠️ Básico | ✅ Avançado (iluminação, cor, composição) |
+| **First-Last Frame** | ❌ Nêo | ✅ Sim (exclusivo) |
+| **Audio-Driven** | ❌ Nêo | ✅ Sim (S2V-14B) |
+| **Character Animation** | ❌ Nêo | ✅ Sim (Animate-14B) |
+| **Geraçêo de texto em cena** | ✅ Sim | ✅ Sim (melhorado) |
+| **Controle cinematográfico** | ⚠️ Básico | ✅ Avançado (iluminaçêo, cor, composiçêo) |
 
 ### Performance e Qualidade
 
@@ -86,13 +86,13 @@ Total: ~27 GB
 
 ### Hardware Requirements
 
-| Configuração | Wan 2.1 14B | Wan 2.2 14B MoE | Wan 2.2 5B |
+| Configuraçêo | Wan 2.1 14B | Wan 2.2 14B MoE | Wan 2.2 5B |
 |--------------|-------------|-----------------|------------|
 | **VRAM mínima** | 12 GB (FP8) | 24 GB (FP8) | 8 GB |
 | **VRAM recomendada** | 16 GB | 24+ GB | 12 GB |
 | **RAM mínima** | 32 GB | 64 GB | 32 GB |
 | **Modelos em memória** | 1 | 2 (simultâneos) | 1 |
-| **Tempo geração (480P)** | ~3 min | ~6 min | ~6 min |
+| **Tempo geraçêo (480P)** | ~3 min | ~6 min | ~6 min |
 
 **Para DGX Spark (128GB unificada):**
 - ✅ Wan 2.1 14B: Confortável
@@ -123,13 +123,13 @@ Total: ~27 GB
 - ✅ Precisa de recursos exclusivos (I2V, First-Last Frame, Audio-Driven)
 - ✅ Tem hardware robusto (DGX Spark qualifica!)
 - ✅ Quer melhor aderência ao prompt
-- ✅ Não depende de LoRAs existentes
+- ✅ Nêo depende de LoRAs existentes
 
 ---
 
 ## Estratégia Recomendada para DGX Spark
 
-### Opção 1: Implementar Ambos Wan 2.1 + Wan 2.2 (RECOMENDADO)
+### Opçêo 1: Implementar Ambos Wan 2.1 + Wan 2.2 (RECOMENDADO)
 
 **Justificativa:**
 - Memória unificada 128GB suporta ambos confortavelmente
@@ -159,7 +159,7 @@ ComfyUI/models/
 - `gerar_video_wan22_14b.py` (criar)
 - `gerar_video_wan22_5b.py` (criar)
 
-### Opção 2: Apenas Wan 2.2 14B MoE
+### Opçêo 2: Apenas Wan 2.2 14B MoE
 
 **Justificativa:**
 - Máxima qualidade cinematográfica
@@ -168,7 +168,7 @@ ComfyUI/models/
 
 **Espaço:** ~77 GB
 
-### Opção 3: Apenas Wan 2.2 5B
+### Opçêo 3: Apenas Wan 2.2 5B
 
 **Justificativa:**
 - Mais leve e rápido
@@ -179,7 +179,7 @@ ComfyUI/models/
 
 ---
 
-## Plano de Implementação: Wan 2.2 (Dual Track)
+## Plano de Implementaçêo: Wan 2.2 (Dual Track)
 
 ### Fase 1: Completar Wan 2.1 ✅ COMPLETO
 
@@ -187,7 +187,7 @@ ComfyUI/models/
 - ✅ T5 FP8 safetensors baixado (6.2GB)
 - ✅ Modelo principal wan2.1_t2v_14B.safetensors (65GB)
 - ✅ VAE Wan2.1_VAE.pth (485MB)
-- ✅ LTX-2 não afetado
+- ✅ LTX-2 nêo afetado
 - 🔄 Pronto para testes
 
 ### Fase 2: Implementar Wan 2.2 5B (Primeiro)
@@ -268,7 +268,7 @@ huggingface-cli download Wan-AI/Wan2.2-T2V-A14B \
 ### Fase 4: Adicionar à Interface Web
 
 #### 4.1. Expandir web_interface_v3.py
-- Adicionar dropdown de seleção de modelo:
+- Adicionar dropdown de seleçêo de modelo:
   - LTX-2 19B
   - Wan 2.1 14B
   - Wan 2.2 5B
@@ -313,8 +313,8 @@ Se houver interesse, implementar:
 3. `workflow_wan22_i2v.json` - Image-to-Video (opcional)
 4. `workflow_wan22_first_last.json` - First-Last Frame (opcional)
 
-### Documentação
-1. `WAN22_INFO.md` - Especificações e comparação com 2.1
+### Documentaçêo
+1. `WAN22_INFO.md` - Especificações e comparaçêo com 2.1
 2. `WAN22_GUIA_USO.md` - Como usar os diferentes modelos
 3. Atualizar `SETUP_COMPLETO_LTX2_DGX_SPARK.md` para incluir Wan 2.2
 
@@ -323,7 +323,7 @@ Se houver interesse, implementar:
 
 ---
 
-## Comparação de Casos de Uso
+## Comparaçêo de Casos de Uso
 
 ### Quando Usar Cada Modelo
 
@@ -342,7 +342,7 @@ Se houver interesse, implementar:
 - ✅ **Híbrido T2V + I2V** em um modelo
 - ✅ **Leve e rápido** (~6 min, ~20GB)
 - ✅ First-Last Frame
-- ✅ Bom para experimentação rápida
+- ✅ Bom para experimentaçêo rápida
 
 #### Wan 2.2 14B MoE
 - ✅ **Máxima qualidade cinematográfica**
@@ -357,40 +357,40 @@ Se houver interesse, implementar:
 ## Riscos e Mitigações
 
 ### Risco 1: Compatibilidade ComfyUI
-- **Descrição:** Wan 2.2 pode ter problemas com versão atual do ComfyUI
-- **Mitigação:**
+- **Descriçêo:** Wan 2.2 pode ter problemas com versêo atual do ComfyUI
+- **Mitigaçêo:**
   - Testar primeiro com 5B (mais simples)
   - Atualizar ComfyUI antes de começar
   - Verificar custom nodes necessários
 
 ### Risco 2: Consumo de RAM Excessivo
-- **Descrição:** Relatórios de 100GB+ RAM para I2V 2.2
-- **Mitigação:**
+- **Descriçêo:** Relatórios de 100GB+ RAM para I2V 2.2
+- **Mitigaçêo:**
   - DGX Spark tem 128GB (suficiente)
   - Começar com resoluções menores
   - Usar tiled VAE decode se necessário
 
 ### Risco 3: Qualidade do Modelo 5B
-- **Descrição:** Comunidade reporta qualidade inferior, deformações
-- **Mitigação:**
+- **Descriçêo:** Comunidade reporta qualidade inferior, deformações
+- **Mitigaçêo:**
   - Testar com expectativas realistas
   - Se insatisfatório, pular para 14B MoE
-  - 5B serve como validação de setup, não modelo final
+  - 5B serve como validaçêo de setup, nêo modelo final
 
 ### Risco 4: Workflow Dual-Model Complexo
-- **Descrição:** Dois samplers podem ser difíceis de configurar
-- **Mitigação:**
+- **Descriçêo:** Dois samplers podem ser difíceis de configurar
+- **Mitigaçêo:**
   - Usar templates oficiais ComfyUI
   - Documentar detalhadamente
   - Criar scripts CLI que abstraem complexidade
 
-### Risco 5: Não Afetar LTX-2
-- **Descrição:** Mudanças podem quebrar LTX-2 funcionando
-- **Mitigação:**
-  - ✅ Novos arquivos em unet/ não afetam checkpoints/
+### Risco 5: Nêo Afetar LTX-2
+- **Descriçêo:** Mudanças podem quebrar LTX-2 funcionando
+- **Mitigaçêo:**
+  - ✅ Novos arquivos em unet/ nêo afetam checkpoints/
   - ✅ VAE 2.2 separado do LTX-2
   - ✅ Text encoder compartilhado (já usado por ambos)
-  - ✅ Custom nodes são aditivos
+  - ✅ Custom nodes sêo aditivos
   - ✅ Testar LTX-2 após cada fase
 
 ---
@@ -402,12 +402,12 @@ Se houver interesse, implementar:
 
 ### Fase 2: Wan 2.2 5B
 - **Download:** ~20 GB → ~30 minutos
-- **Configuração:** ~1 hora (workflow + script + teste)
+- **Configuraçêo:** ~1 hora (workflow + script + teste)
 - **Total:** ~1.5 horas
 
 ### Fase 3: Wan 2.2 14B MoE
 - **Download:** ~70 GB (dois modelos) → ~1 hora
-- **Configuração:** ~1.5 horas (workflow dual-model + script + teste)
+- **Configuraçêo:** ~1.5 horas (workflow dual-model + script + teste)
 - **Total:** ~2.5 horas
 
 ### Fase 4: Interface Web
@@ -423,9 +423,9 @@ Se houver interesse, implementar:
 
 ---
 
-## Recomendação Final
+## Recomendaçêo Final
 
-### Para DGX Spark: **Opção 1 (Implementar Ambos)**
+### Para DGX Spark: **Opçêo 1 (Implementar Ambos)**
 
 **Justificativa:**
 1. **Memória unificada 128GB** suporta todos os modelos confortavelmente
@@ -434,7 +434,7 @@ Se houver interesse, implementar:
 4. **Casos de uso diferentes**: LTX-2 (áudio), Wan 2.1 (velocidade + LoRAs), Wan 2.2 (qualidade cinematográfica)
 5. **DGX Spark é hardware premium**: Aproveitar ao máximo
 
-### Ordem de Implementação:
+### Ordem de Implementaçêo:
 1. ✅ Completar Wan 2.1 (100% pronto)
 2. 🔄 Testar Wan 2.2 5B (validar setup)
 3. 🔄 Implementar Wan 2.2 14B MoE (qualidade máxima)
@@ -450,13 +450,13 @@ DGX Spark com 3+ modelos funcionais:
 - Wan 2.2 14B MoE: Qualidade Cinematográfica Máxima
 
 Total: ~250 GB modelos (128GB memória unificada OK)
-Interface Web: Seleção de modelo dropdown
+Interface Web: Seleçêo de modelo dropdown
 Scripts CLI: Todos os modelos acessíveis
 ```
 
 ---
 
-## Verificação End-to-End
+## Verificaçêo End-to-End
 
 ### Teste Wan 2.1 (Atual)
 ```bash
@@ -476,7 +476,7 @@ ls -lh ComfyUI/output/wan22_5b_*.mp4
 ls -lh ComfyUI/output/wan22_14b_*.mp4
 ```
 
-### Verificação LTX-2 (Não Afetado)
+### Verificaçêo LTX-2 (Nêo Afetado)
 ```bash
 ./gerar_video_ltx2.py "test prompt" --frames 49
 ls -lh ComfyUI/output/ltx2_*.mp4
@@ -491,7 +491,7 @@ ls -lh ComfyUI/output/ltx2_*.mp4
 
 ---
 
-## Arquivos Críticos (Não Modificar)
+## Arquivos Críticos (Nêo Modificar)
 
 **Garantir integridade:**
 - ✅ `ComfyUI/models/checkpoints/ltx-2-19b-distilled.safetensors`
@@ -504,15 +504,15 @@ ls -lh ComfyUI/output/ltx2_*.mp4
 
 ---
 
-## Status de Implementação
+## Status de Implementaçêo
 
 **Data:** 2026-02-16
-**Última atualização:** Fase 1 completa, iniciando Fase 2
+**Última atualizaçêo:** Fase 1 completa, iniciando Fase 2
 
 | Fase | Status | Notas |
 |------|--------|-------|
 | Fase 1: Wan 2.1 | ✅ COMPLETO | T5 FP8, modelo 14B, VAE todos baixados |
 | Fase 2: Wan 2.2 5B | 🔄 EM PROGRESSO | Iniciando downloads |
 | Fase 3: Wan 2.2 14B MoE | ⏸️ AGUARDANDO | Depende de Fase 2 |
-| Fase 4: Interface Web | ⏸️ AGUARDANDO | Após validação dos modelos |
+| Fase 4: Interface Web | ⏸️ AGUARDANDO | Após validaçêo dos modelos |
 | Fase 5: Recursos Avançados | ⏸️ OPCIONAL | Conforme demanda |

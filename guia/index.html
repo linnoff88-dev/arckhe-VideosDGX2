@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VideosDGX2 — Geração de vídeo local no DGX Spark</title>
-<meta name="description" content="Stack de geração de vídeo com Wan 2.2 + ComfyUI rodando local no NVIDIA DGX Spark, com interface web e fila de jobs.">
+<title>VideosDGX2 — Geraçêo de vídeo local no DGX Spark</title>
+<meta name="description" content="Stack de geraçêo de vídeo com Wan 2.2 + ComfyUI rodando local no NVIDIA DGX Spark, com interface web e fila de jobs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -117,22 +117,22 @@
       <span class="chip">Vídeo/IA · DGX Spark</span>
       <h1>Vídeo por IA <span class="amb">100% local</span>, sem depender de nuvem</h1>
       <p class="lead">Wan 2.2 rodando no NVIDIA DGX Spark via ComfyUI, com interface web
-      própria e fila de jobs — geração de vídeo por texto ou imagem, direto no hardware,
+      própria e fila de jobs — geraçêo de vídeo por texto ou imagem, direto no hardware,
       sem custo por chamada de API.</p>
       <div class="cta">
         <a class="btn" href="#guia">Começar o guia</a>
         <a class="btn ghost" href="https://github.com/inematds/VideosDGX2" target="_blank" rel="noopener">Ver no GitHub</a>
       </div>
     </div>
-    <figure><img src="assets/hero.png" alt="Geração de vídeo por IA rodando local no NVIDIA DGX Spark"></figure>
+    <figure><img src="assets/hero.png" alt="Geraçêo de vídeo por IA rodando local no NVIDIA DGX Spark"></figure>
   </div>
 </header>
 
 <section id="oque"><div class="wrap">
   <span class="chip">O que é</span>
-  <h2>Stack de geração de vídeo dedicado ao DGX Spark</h2>
-  <p class="sub">Continuação reorganizada do repositório original <code>VideosDGX</code> (mantido
-  como backup histórico) — aqui ficou só o que está ativo em produção: ComfyUI + Wan 2.2.</p>
+  <h2>Stack de geraçêo de vídeo dedicado ao DGX Spark</h2>
+  <p class="sub">Continuaçêo reorganizada do repositório original <code>VideosDGX</code> (mantido
+  como backup histórico) — aqui ficou só o que está ativo em produçêo: ComfyUI + Wan 2.2.</p>
   <div class="grid g3">
     <div class="card"><h3>🖥️ Tudo local</h3><p>Roda inteiro na GPU Blackwell GB10 do DGX Spark
     (128 GB de memória unificada, ~1 PFLOP FP4) — sem enviar prompt nem receber vídeo de
@@ -182,7 +182,7 @@
   <span class="chip">Pré-requisitos</span>
   <h2>O que precisa estar no ar</h2>
   <p class="sub">Feito sob medida pro NVIDIA DGX Spark 2026 (GB10 Blackwell, 128 GB
-  unificados). Os pesos dos modelos (~50 GB) não ficam no git.</p>
+  unificados). Os pesos dos modelos (~50 GB) nêo ficam no git.</p>
   <div class="grid g3">
     <div class="card"><h3>Ambiente Python</h3><p>venv <code>comfyui-env</code> com o
     ComfyUI oficial NVIDIA e as dependências da interface web.</p><pre><span class="c"># ativar o venv</span>
@@ -205,7 +205,7 @@
 
   <div class="step"><div class="b">1</div><div>
     <h3>Suba a interface web</h3>
-    <p>Sobe o ComfyUI (se não estiver rodando) e a interface web na porta 7862.</p>
+    <p>Sobe o ComfyUI (se nêo estiver rodando) e a interface web na porta 7862.</p>
 <pre><span class="k">./iniciar_interface_web.sh</span>  <span class="c"># http://localhost:7862 (ComfyUI em :8188)</span></pre>
   </div></div>
 
@@ -240,9 +240,9 @@
 
   <div class="step"><div class="b">6</div><div>
     <h3>Dica de prompt</h3>
-    <p>Fórmula recomendada e restrição de resolução dos modelos Wan 2.2.</p>
+    <p>Fórmula recomendada e restriçêo de resoluçêo dos modelos Wan 2.2.</p>
 <pre><span class="c"># fórmula</span>
-<span class="s">[SUJEITO] + [AÇÃO] + [CENÁRIO] + [ESTILO] + [QUALIDADE]</span>
+<span class="s">[SUJEITO] + [AÇêO] + [CENÁRIO] + [ESTILO] + [QUALIDADE]</span>
 <span class="c"># largura/altura sempre múltiplos de 32</span></pre>
   </div></div>
 </div></section>
@@ -251,16 +251,16 @@
   <span class="chip">Roadmap</span>
   <h2>Estado atual e próximo passo opcional</h2>
   <p class="sub">O stack ativo hoje é ComfyUI + Wan 2.2. O LTX-2.3 é um add-on documentado,
-  ainda não instalado por padrão.</p>
-  <div class="phase"><div class="tag">v5.0</div><div class="d"><strong>Reorganização (atual)</strong><span>Stack reduzido a ComfyUI + Wan 2.2 (5B + 14B MoE); pipelines antigos (LTX-2 19B, Wan 2.1, MAGI-1, Waver) e o approach Docker foram removidos; repo original preservado como backup em <code>inematds/VideosDGX</code>.</span></div></div>
-  <div class="phase"><div class="tag">Opcional</div><div class="d"><strong>LTX-2.3 (Lightricks, 22B)</strong><span>Vídeo + áudio sincronizados num único modelo, com lipsync nativo e pipeline em 2 estágios. Não vem instalado — add-on documentado no README, requer ~80 GB de download (checkpoint + text encoder Gemma 3 12B gated + upscalers).</span></div></div>
-  <div class="phase"><div class="tag">v4.2</div><div class="d"><strong>Interface web: fila + cancelamento</strong><span>Fila ilimitada de jobs, cancelamento em fila ou em processamento, posição na fila via <code>/api/jobs</code>, estado persistido em <code>/tmp/dgx_jobs_v4_2.json</code>.</span></div></div>
+  ainda nêo instalado por padrêo.</p>
+  <div class="phase"><div class="tag">v5.0</div><div class="d"><strong>Reorganizaçêo (atual)</strong><span>Stack reduzido a ComfyUI + Wan 2.2 (5B + 14B MoE); pipelines antigos (LTX-2 19B, Wan 2.1, MAGI-1, Waver) e o approach Docker foram removidos; repo original preservado como backup em <code>inematds/VideosDGX</code>.</span></div></div>
+  <div class="phase"><div class="tag">Opcional</div><div class="d"><strong>LTX-2.3 (Lightricks, 22B)</strong><span>Vídeo + áudio sincronizados num único modelo, com lipsync nativo e pipeline em 2 estágios. Nêo vem instalado — add-on documentado no README, requer ~80 GB de download (checkpoint + text encoder Gemma 3 12B gated + upscalers).</span></div></div>
+  <div class="phase"><div class="tag">v4.2</div><div class="d"><strong>Interface web: fila + cancelamento</strong><span>Fila ilimitada de jobs, cancelamento em fila ou em processamento, posiçêo na fila via <code>/api/jobs</code>, estado persistido em <code>/tmp/dgx_jobs_v4_2.json</code>.</span></div></div>
 </div></section>
 
 <footer>
   <div class="wrap">
     <div class="pill">ComfyUI</div><div class="pill">Wan 2.2</div><div class="pill">FastAPI</div><div class="pill">DGX Spark</div>
-    <p style="margin-top:18px">VideosDGX2 · geração de vídeo local no NVIDIA DGX Spark ·
+    <p style="margin-top:18px">VideosDGX2 · geraçêo de vídeo local no NVIDIA DGX Spark ·
       <a href="https://github.com/inematds/VideosDGX2">inematds/VideosDGX2</a> ·
       <a href="https://inema.club">INEMA.CLUB</a></p>
   </div>

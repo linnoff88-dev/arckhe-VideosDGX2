@@ -86,7 +86,7 @@ def build_api_workflow(prompt, negative, width, height, frames, fps, cfg,
 
     # Dropar o ramo de sampler ClownSampler_Beta (RES4LYF nao instalado).
     # ui_to_api ja descarta nos sem schema; aqui garantimos a poda do SaveVideo
-    # desse ramo para nao deixar saida orfã.
+    # desse ramo para nao deixar saida orfê.
     api = lxu.ui_to_api(ui, oi, combo_prefer=COMBO_PREFER)
 
     # Manter apenas o subgrafo do SaveVideo que queremos (ramo CFGGuider).

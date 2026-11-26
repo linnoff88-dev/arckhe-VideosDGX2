@@ -10,13 +10,13 @@
 2. [Lições Críticas Aprendidas](#2-lições-críticas-aprendidas)
 3. [Arquitetura Escolhida e Por Quê](#3-arquitetura-escolhida-e-por-quê)
 4. [Setup do Sistema Base](#4-setup-do-sistema-base)
-5. [Instalação do ComfyUI](#5-instalação-do-comfyui)
-6. [Modelos: O Que Funciona e O Que Não](#6-modelos-o-que-funciona-e-o-que-não)
+5. [Instalaçêo do ComfyUI](#5-instalaçêo-do-comfyui)
+6. [Modelos: O Que Funciona e O Que Nêo](#6-modelos-o-que-funciona-e-o-que-nêo)
 7. [Custom Nodes e Dependências](#7-custom-nodes-e-dependências)
-8. [Interface Web: Evolução e Decisões](#8-interface-web-evolução-e-decisões)
+8. [Interface Web: Evoluçêo e Decisões](#8-interface-web-evoluçêo-e-decisões)
 9. [Problemas Comuns e Soluções](#9-problemas-comuns-e-soluções)
 10. [Otimizações de Performance](#10-otimizações-de-performance)
-11. [Checklist de Validação](#11-checklist-de-validação)
+11. [Checklist de Validaçêo](#11-checklist-de-validaçêo)
 
 ---
 
@@ -43,14 +43,14 @@ Disco:    NVMe 3.7 TB total · 1.8 TB usado · 1.7 TB livre
 - GB10 acessa RAM diretamente via NVLink
 
 **Arquitetura ARM64:**
-- ⚠️ **CRÍTICO:** Alguns Docker images x86_64 NÃO funcionam
+- ⚠️ **CRÍTICO:** Alguns Docker images x86_64 NêO funcionam
 - ⚠️ Binários pré-compilados podem falhar
 - ✅ Python puro funciona normalmente
 - ✅ PyTorch 2.10+ tem suporte nativo ARM64
 
 **Blackwell GB10 — Recursos Especiais:**
 - FP4/FP8 nativo em hardware (NVFP4)
-- Tensor cores de 5ª geração
+- Tensor cores de 5ª geraçêo
 - CUDA 13.0 (retrocompatível com 12.x)
 - Performance: ~1 PFLOP FP4 · ~0.5 PFLOP FP8 · ~60 TFLOPS FP16
 
@@ -58,29 +58,29 @@ Disco:    NVMe 3.7 TB total · 1.8 TB usado · 1.7 TB livre
 
 ## 2. Lições Críticas Aprendidas
 
-### 2.1 O Que NÃO Funciona (Economize Horas)
+### 2.1 O Que NêO Funciona (Economize Horas)
 
 #### ❌ Docker Multi-Container Approach
 **Tentativa:** 4 containers (LTX-2, Wan, MAGI, Waver) com Docker Compose
-**Problema:** `torch.xpu` não funciona em ARM64, conflitos de CUDA runtime
+**Problema:** `torch.xpu` nêo funciona em ARM64, conflitos de CUDA runtime
 **Tempo perdido:** 4+ horas
-**Lição:** Evitar Docker no DGX Spark para modelos de vídeo. Python venv funciona melhor.
+**Liçêo:** Evitar Docker no DGX Spark para modelos de vídeo. Python venv funciona melhor.
 
 #### ❌ Diffusers Library Direto (sem ComfyUI)
 **Tentativa:** Usar `diffusers` library direto do HuggingFace
 **Problema:** Suporte incompleto para LTX-2, faltam pipelines customizados
-**Lição:** ComfyUI é **recomendação oficial da NVIDIA** para DGX Spark. Usar sempre.
+**Liçêo:** ComfyUI é **recomendaçêo oficial da NVIDIA** para DGX Spark. Usar sempre.
 
 #### ❌ Wan 2.1 14B
-**Problema:** Safetensors header >48 KB → `safetensors 0.7.0` não lê
+**Problema:** Safetensors header >48 KB → `safetensors 0.7.0` nêo lê
 **Erro:** `"Error while deserializing header: header too large"`
 **Modelo:** `wan2.1_t2v_14B.safetensors` (65 GB) → **INUTILIZÁVEL**
-**Solução:** Migrar para Wan 2.2 (arquitetura MoE, headers menores)
+**Soluçêo:** Migrar para Wan 2.2 (arquitetura MoE, headers menores)
 
 #### ❌ Text Encoder FP8 para Wan (safetensors)
 **Arquivo:** `umt5_xxl_fp8_e4m3fn_scaled.safetensors` (6.3 GB)
 **Problema:** Mesmo erro de header >48 KB
-**Workaround:** Usar versão `.pth` BF16 (11 GB) — funciona perfeitamente
+**Workaround:** Usar versêo `.pth` BF16 (11 GB) — funciona perfeitamente
 **Trade-off:** +4.7 GB de VRAM, mas compatível
 
 #### ❌ I2V com Prefix de Busca Errado
@@ -90,12 +90,12 @@ Disco:    NVMe 3.7 TB total · 1.8 TB usado · 1.7 TB livre
 # ERRADO (código original)
 prefix = f"web_{req.model}_{job_id}"  # "web_wan22_5b_4efcde4a"
 # Arquivo gerado: "web_wan22_5b_i2v_4efcde4a_00001.mp4"
-# → prefix NÃO está contido no filename!
+# → prefix NêO está contido no filename!
 
 # CORRETO (fix aplicado)
 videos = [f for f in OUTPUT_DIR.glob("*.mp4") if job_id in f.name]
 ```
-**Lição:** Usar `job_id` diretamente (sempre único), não construir prefix manualmente.
+**Liçêo:** Usar `job_id` diretamente (sempre único), nêo construir prefix manualmente.
 
 ---
 
@@ -110,8 +110,8 @@ ComfyUI (clone direto do GitHub)
 Custom nodes via git clone
 ```
 **Por quê funciona:**
-- ComfyUI é wrapper universal para qualquer modelo de difusão
-- Abstrai complexidade de quantização, sampling, VAE
+- ComfyUI é wrapper universal para qualquer modelo de difusêo
+- Abstrai complexidade de quantizaçêo, sampling, VAE
 - Custom nodes da comunidade cobrem 90% dos modelos
 
 #### ✅ Wan 2.2 (5B e 14B MoE)
@@ -133,7 +133,7 @@ Custom nodes via git clone
 - Distilled version = mesma qualidade, metade do tamanho
 
 #### ✅ Interface Web com Fila de Jobs
-**Versão atual:** v4.2 (porta 7862)
+**Versêo atual:** v4.2 (porta 7862)
 **Arquitetura:** FastAPI + threading.Queue + background worker
 **Por quê funciona:**
 - Um job por vez (evita OOM por modelos simultâneos)
@@ -167,12 +167,12 @@ Custom nodes via git clone
 ┌─────────────────────────────────────────────┐
 │  ComfyUI Server (porta 8188)               │
 │  - Carrega modelos sob demanda              │
-│  - Executa workflow de difusão              │
+│  - Executa workflow de difusêo              │
 │  - Salva MP4 em output/                     │
 └─────────────────────────────────────────────┘
 ```
 
-### 3.2 Por Que Não Usar...
+### 3.2 Por Que Nêo Usar...
 
 **Docker?**
 - ARM64 complica tudo
@@ -193,7 +193,7 @@ Custom nodes via git clone
 
 ## 4. Setup do Sistema Base
 
-### 4.1 Preparação do Ambiente
+### 4.1 Preparaçêo do Ambiente
 
 ```bash
 # 1. Verificar GPU
@@ -240,9 +240,9 @@ pip install --upgrade pip setuptools wheel
 
 ---
 
-## 5. Instalação do ComfyUI
+## 5. Instalaçêo do ComfyUI
 
-### 5.1 Clone e Instalação Base
+### 5.1 Clone e Instalaçêo Base
 
 ```bash
 cd /home/nmaldaner/projetos/VideosDGX
@@ -257,7 +257,7 @@ pip install -r requirements.txt
 # ⚠️ IMPORTANTE: PyTorch específico para CUDA 13.0
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
 
-# Verificar instalação
+# Verificar instalaçêo
 python3 -c "import torch; print('CUDA:', torch.cuda.is_available(), '| GPU:', torch.cuda.get_device_name(0))"
 # Output esperado: CUDA: True | GPU: NVIDIA GB10
 ```
@@ -294,13 +294,13 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 
 ---
 
-## 6. Modelos: O Que Funciona e O Que Não
+## 6. Modelos: O Que Funciona e O Que Nêo
 
 ### 6.1 LTX-2 19B — Setup Completo
 
 #### Modelos Necessários
 
-| Arquivo | Tamanho | Localização | HuggingFace Repo |
+| Arquivo | Tamanho | Localizaçêo | HuggingFace Repo |
 |---------|---------|-------------|------------------|
 | `ltx-2-19b-distilled.safetensors` | 41 GB | `models/checkpoints/` | `Lightricks/LTX-Video` |
 | `gemma_3_12B_it_fp8_e4m3fn.safetensors` | 6 GB | `models/clip/` | `city96/gemma-3-12B-it-GGUF` ou similar |
@@ -341,7 +341,7 @@ cd ComfyUI-LTXVideo
 pip install -r requirements.txt
 ```
 
-**Verificação:**
+**Verificaçêo:**
 - Reiniciar ComfyUI
 - Interface deve mostrar nodes "LTXVideo..." no menu
 
@@ -385,7 +385,7 @@ wget https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/mo
 # Tamanho: 11 GB
 ```
 
-**⚠️ EVITAR:** `umt5_xxl_fp8_e4m3fn_scaled.safetensors` — header muito grande, não funciona.
+**⚠️ EVITAR:** `umt5_xxl_fp8_e4m3fn_scaled.safetensors` — header muito grande, nêo funciona.
 
 #### Custom Node WanVideo
 
@@ -428,7 +428,7 @@ git clone https://github.com/kijai/ComfyUI-WanVideoKsampler.git
 # 3. Video Helper Suite (utilitários de vídeo)
 git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
 
-# 4. ComfyUI Manager (recomendado — facilita instalação de nodes)
+# 4. ComfyUI Manager (recomendado — facilita instalaçêo de nodes)
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 ```
 
@@ -469,15 +469,15 @@ pip install \
   numpy
 ```
 
-**⚠️ Versão do safetensors:** 0.7.0 tem limite de 48 KB para headers. Versões mais novas (0.8+) podem resolver, mas não testado.
+**⚠️ Versêo do safetensors:** 0.7.0 tem limite de 48 KB para headers. Versões mais novas (0.8+) podem resolver, mas nêo testado.
 
 ---
 
-## 8. Interface Web: Evolução e Decisões
+## 8. Interface Web: Evoluçêo e Decisões
 
 ### 8.1 Histórico de Versões
 
-| Versão | Porta | Principais Mudanças |
+| Versêo | Porta | Principais Mudanças |
 |--------|-------|---------------------|
 | v1 | 7860 | Protótipo básico, 1 modelo |
 | v2 | 7860 | Multi-modelo (LTX-2 + Wan) |
@@ -488,9 +488,9 @@ pip install \
 
 ### 8.2 v4.2 — Arquitetura Final
 
-#### Por Que Threading + Queue (não asyncio)?
+#### Por Que Threading + Queue (nêo asyncio)?
 
-**Decisão:**
+**Decisêo:**
 ```python
 job_queue = queue.Queue()  # Thread-safe FIFO queue
 
@@ -504,14 +504,14 @@ def queue_worker():
 threading.Thread(target=queue_worker, daemon=True).start()
 ```
 
-**Por quê não asyncio?**
-- `subprocess.run()` é **bloqueante** (não async-friendly)
-- ComfyUI API não é assíncrona
+**Por quê nêo asyncio?**
+- `subprocess.run()` é **bloqueante** (nêo async-friendly)
+- ComfyUI API nêo é assíncrona
 - Threading + Queue = mais simples, zero race conditions
 
 #### Cancelamento de Jobs
 
-**Implementação:**
+**Implementaçêo:**
 ```python
 cancelled_jobs = set()  # Thread-safe (GIL protege)
 
@@ -530,13 +530,13 @@ while time.time() - start < JOB_TIMEOUT:
 **Por quê funciona:**
 - `set()` é thread-safe para add/discard
 - Worker thread verifica a cada 5s (granularidade aceitável)
-- Jobs na fila (`queued`) são pulados instantaneamente
+- Jobs na fila (`queued`) sêo pulados instantaneamente
 
 #### Refresh Adaptativo (Fix de Piscar)
 
 **Problema original:** DOM rebuilding a cada 3s → vídeos param, scroll pula
 
-**Solução:**
+**Soluçêo:**
 ```python
 let _lastJobsFingerprint = '';
 
@@ -551,26 +551,26 @@ async function loadJobs() {
   const fp = jobsFingerprint(jobs);
 
   if (fp === _lastJobsFingerprint && domExists) {
-    return;  // Nada mudou → não toca no DOM
+    return;  // Nada mudou → nêo toca no DOM
   }
   _lastJobsFingerprint = fp;
   // ... rebuild DOM apenas se mudou
 }
 ```
 
-**Resultado:** Zero flicker quando jobs estão estáveis (ex: processing sem mudança de progresso).
+**Resultado:** Zero flicker quando jobs estêo estáveis (ex: processing sem mudança de progresso).
 
 ---
 
 ## 9. Problemas Comuns e Soluções
 
-### 9.1 ComfyUI Não Inicia
+### 9.1 ComfyUI Nêo Inicia
 
 **Sintoma:** `python main.py` trava ou erro de import
 
-**Causa Provável:** PyTorch não instalado ou versão errada
+**Causa Provável:** PyTorch nêo instalado ou versêo errada
 
-**Solução:**
+**Soluçêo:**
 ```bash
 source comfyui-env/bin/activate
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
@@ -582,13 +582,13 @@ python3 -c "import torch; print(torch.__version__, torch.cuda.is_available())"
 
 ---
 
-### 9.2 Modelo Não Aparece no Dropdown do ComfyUI
+### 9.2 Modelo Nêo Aparece no Dropdown do ComfyUI
 
-**Sintoma:** Modelo baixado, mas não aparece na lista de UNetLoader/CheckpointLoader
+**Sintoma:** Modelo baixado, mas nêo aparece na lista de UNetLoader/CheckpointLoader
 
 **Causa:** Arquivo na pasta errada ou nome incorreto
 
-**Solução:**
+**Soluçêo:**
 ```bash
 # Verificar estrutura
 ls -lh ComfyUI/models/checkpoints/  # LTX-2 checkpoint aqui
@@ -613,15 +613,15 @@ python main.py --listen 0.0.0.0
 
 **Causa:** safetensors 0.7.0 tem limite de 48 KB para metadata header
 
-**Solução (curto prazo):**
+**Soluçêo (curto prazo):**
 - Wan 2.1 → migrar para **Wan 2.2** (headers normais)
-- UMT5 FP8 → usar versão **BF16 .pth** (funciona perfeitamente)
+- UMT5 FP8 → usar versêo **BF16 .pth** (funciona perfeitamente)
 
-**Solução (longo prazo):**
+**Soluçêo (longo prazo):**
 ```bash
 pip install safetensors>=0.8.0  # Versões futuras podem suportar
 ```
-⚠️ **Não testado ainda** — pode quebrar ComfyUI.
+⚠️ **Nêo testado ainda** — pode quebrar ComfyUI.
 
 ---
 
@@ -675,7 +675,7 @@ cd ComfyUI
 python main.py --listen 0.0.0.0
 ```
 
-3. **Reduzir resolução/frames:**
+3. **Reduzir resoluçêo/frames:**
 ```python
 # Na interface web, usar presets menores:
 # 720P 2s (57 frames) → 480P 2s (33 frames)
@@ -690,17 +690,17 @@ python main.py --listen 0.0.0.0
 
 ### 9.6 ComfyUI Lento (>10 min por vídeo)
 
-**Causa provável:** GPU não está sendo usada (CPU fallback)
+**Causa provável:** GPU nêo está sendo usada (CPU fallback)
 
 **Diagnóstico:**
 ```bash
-# Durante geração:
+# Durante geraçêo:
 watch -n 1 nvidia-smi
 
-# Se "GPU-Util" ficar em 0-5%, GPU não está sendo usada
+# Se "GPU-Util" ficar em 0-5%, GPU nêo está sendo usada
 ```
 
-**Solução:**
+**Soluçêo:**
 ```bash
 # Verificar CUDA
 python3 -c "import torch; print(torch.cuda.is_available())"
@@ -746,7 +746,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
-## 11. Checklist de Validação
+## 11. Checklist de Validaçêo
 
 ### 11.1 Após Setup Completo
 
@@ -771,7 +771,7 @@ curl http://localhost:7862/
 
 # 4. GPU ativa
 nvidia-smi
-# Deve mostrar NVIDIA GB10, 0% utilização (idle)
+# Deve mostrar NVIDIA GB10, 0% utilizaçêo (idle)
 
 # 5. VRAM livre
 nvidia-smi --query-gpu=memory.free --format=csv,noheader
@@ -782,7 +782,7 @@ df -h /home/nmaldaner/projetos/VideosDGX
 # Deve mostrar >500 GB livre
 ```
 
-### 11.2 Teste de Geração (Wan 5B — Mais Rápido)
+### 11.2 Teste de Geraçêo (Wan 5B — Mais Rápido)
 
 ```bash
 cd /home/nmaldaner/projetos/VideosDGX
@@ -825,7 +825,7 @@ ls -lh ComfyUI/output/test_wan5b_*.mp4
 
 ## 12. Arquivos de Referência
 
-### 12.1 Documentação Gerada Durante Desenvolvimento
+### 12.1 Documentaçêo Gerada Durante Desenvolvimento
 
 ```
 doc/
@@ -854,7 +854,7 @@ doc/
 
 ---
 
-## 13. Comandos de Manutenção
+## 13. Comandos de Manutençêo
 
 ### 13.1 Rotina Diária
 
@@ -878,8 +878,8 @@ curl -s http://localhost:7862/api/jobs | python3 -m json.tool | grep -E "job_id|
 # Remover vídeos antigos (>30 dias)
 find ComfyUI/output/*.mp4 -mtime +30 -delete
 
-# Remover modelos não usados (opcional)
-# Wan 2.1 (não funciona):
+# Remover modelos nêo usados (opcional)
+# Wan 2.1 (nêo funciona):
 rm ComfyUI/models/unet/wan2.1_t2v_14B.safetensors  # Libera 65 GB
 
 # UMT5 FP16 duplicado:
@@ -909,14 +909,14 @@ tar -czf ~/backup/scripts_$(date +%Y%m%d).tar.gz \
 
 ## 14. Troubleshooting Rápido
 
-| Problema | Comando de Diagnóstico | Solução Rápida |
+| Problema | Comando de Diagnóstico | Soluçêo Rápida |
 |----------|------------------------|----------------|
-| ComfyUI não responde | `curl http://localhost:8188/` | `pkill -f main.py && python main.py` |
+| ComfyUI nêo responde | `curl http://localhost:8188/` | `pkill -f main.py && python main.py` |
 | Interface web down | `curl http://localhost:7862/` | `./iniciar_interface_web_v4_2.sh` |
-| Job travado | `curl http://localhost:7862/api/jobs` | Cancelar via botão ✕ na interface |
+| Job travado | `curl http://localhost:7862/api/jobs` | Cancelar via botêo ✕ na interface |
 | VRAM cheia | `nvidia-smi` | Reiniciar ComfyUI |
-| Disco cheio | `df -h /` | Remover vídeos antigos ou modelos não usados |
-| GPU não detectada | `nvidia-smi` | Verificar driver, reiniciar sistema |
+| Disco cheio | `df -h /` | Remover vídeos antigos ou modelos nêo usados |
+| GPU nêo detectada | `nvidia-smi` | Verificar driver, reiniciar sistema |
 
 ---
 
@@ -927,7 +927,7 @@ Se reconstruindo do zero:
 1. ✅ **Dia 1:** Setup base + ComfyUI + 1 modelo (Wan 5B — mais rápido)
 2. ✅ **Dia 2:** Adicionar LTX-2 + Wan 14B
 3. ✅ **Dia 3:** Interface web v4.2 + testes
-4. ✅ **Dia 4:** Otimizações + documentação
+4. ✅ **Dia 4:** Otimizações + documentaçêo
 5. 🔄 **Dia 5+:** SkyReels V3 (opcional — testes isolados)
 
 ---
@@ -936,4 +936,4 @@ Se reconstruindo do zero:
 
 **Criado por:** Claude Code (Sonnet 4.5)
 **Baseado em:** 7 dias de desenvolvimento iterativo no DGX Spark 2026
-**Última atualização:** 2026-02-22
+**Última atualizaçêo:** 2026-02-22

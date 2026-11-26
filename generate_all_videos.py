@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Batch de geração — lê uma LISTA de jobs (JSON) e enfileira todos na interface web (porta 7862).
+Batch de geraçêo — lê uma LISTA de jobs (JSON) e enfileira todos na interface web (porta 7862).
 A interface processa em sequência (fila), com cancelamento e galeria.
 
 Uso:
@@ -28,7 +28,7 @@ DEFAULTS = {
 def main():
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent / "lote.json"
     if not path.exists():
-        print(f"❌ Lote não encontrado: {path}")
+        print(f"❌ Lote nêo encontrado: {path}")
         print("   Crie um JSON com uma lista de jobs (veja lote.exemplo.json).")
         sys.exit(1)
 
@@ -46,7 +46,7 @@ def main():
     try:
         requests.get(f"{WEB_URL}/api/jobs", timeout=5)
     except Exception:
-        print(f"❌ Interface web não responde em {WEB_URL}")
+        print(f"❌ Interface web nêo responde em {WEB_URL}")
         print("   Suba com: ./iniciar_interface_web.sh")
         sys.exit(1)
 

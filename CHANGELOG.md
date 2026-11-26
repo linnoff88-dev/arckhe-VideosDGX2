@@ -2,7 +2,7 @@
 
 Mudanças notáveis do projeto. Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
-## [5.0] - 2026-06-15 — Reorganização e migração para VideosDGX2
+## [5.0] - 2026-06-15 — Reorganizaçêo e migraçêo para VideosDGX2
 
 ### Removido
 - Pipelines **LTX-2**, **Wan 2.1**, **MAGI-1** e **Waver** (código, workflows e modelos).
@@ -16,7 +16,7 @@ Mudanças notáveis do projeto. Formato baseado em [Keep a Changelog](https://ke
 - Stack reduzido ao que está ativo: **ComfyUI + Wan 2.2 (5B + 14B MoE)**.
 - `web_interface_v4_2.py` → **`web_interface.py`** (canônico); código LTX-2 morto removido.
 - Paths absolutos → **relativos** (`$SCRIPT_DIR` / `Path(__file__).parent`).
-- Documentação consolidada em `doc/` (canônicos + `doc/arquivo/` histórico).
+- Documentaçêo consolidada em `doc/` (canônicos + `doc/arquivo/` histórico).
 - **~105 GB de disco liberados** (pipelines descontinuados ~73 GB + modelos
   quebrados/incompletos/duplicados ~20 GB + backup `.OLD` 11 GB).
 
@@ -32,14 +32,14 @@ Mudanças notáveis do projeto. Formato baseado em [Keep a Changelog](https://ke
 - **Fila ilimitada** de jobs (thread worker sequencial via `queue.Queue`); ciclo
   `queued → processing → completed/error`.
 - **Cancelamento** de jobs na fila (imediato) ou em processamento (`POST /api/cancel/{job_id}`).
-- Posição na fila em `/api/jobs`; botão ✕ Cancelar; contadores na sidebar.
+- Posiçêo na fila em `/api/jobs`; botêo ✕ Cancelar; contadores na sidebar.
 - Porta **7862**; estado em `/tmp/dgx_jobs_v4_2.json`.
 
 ---
 
 ## [1.0.0] - 2026-02-15 — Tentativa inicial (Docker, abandonada)
 
-Primeira implementação: 4 containers Docker (LTX-2 / Wan 2.1 / MAGI-1 / Waver) com
-camada FastAPI compartilhada. **Abandonado** — `torch.xpu` não funciona em ARM64 e a GPU
-não era detectada nos containers. Substituído pelo ComfyUI. Histórico completo no repo
+Primeira implementaçêo: 4 containers Docker (LTX-2 / Wan 2.1 / MAGI-1 / Waver) com
+camada FastAPI compartilhada. **Abandonado** — `torch.xpu` nêo funciona em ARM64 e a GPU
+nêo era detectada nos containers. Substituído pelo ComfyUI. Histórico completo no repo
 backup `inematds/VideosDGX`.

@@ -1,4 +1,4 @@
-# DGX Spark 2026 - Pesquisa sobre Geração de Vídeo e Imagem
+# DGX Spark 2026 - Pesquisa sobre Geraçêo de Vídeo e Imagem
 
 **Data da Pesquisa:** 16 de Fevereiro de 2026
 **Hardware Alvo:** NVIDIA DGX Spark com GB10 Grace Blackwell Superchip (128GB memória unificada, ~1 PFLOP FP4)
@@ -7,7 +7,7 @@
 
 ## Resumo Executivo
 
-A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferência de LLMs e fine-tuning**, com capacidades de geração de vídeo/imagem **secundárias mas viáveis**. O gargalo principal é que o GB10 usa memória LPDDR5x compartilhada (baixa largura de banda) ao invés de GDDR7 dedicada, tornando-o mais lento que GPUs dedicadas (RTX 5090) para geração criativa, mas excelente para modelos massivos devido aos 128GB unificados.
+A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferência de LLMs e fine-tuning**, com capacidades de geraçêo de vídeo/imagem **secundárias mas viáveis**. O gargalo principal é que o GB10 usa memória LPDDR5x compartilhada (baixa largura de banda) ao invés de GDDR7 dedicada, tornando-o mais lento que GPUs dedicadas (RTX 5090) para geraçêo criativa, mas excelente para modelos massivos devido aos 128GB unificados.
 
 ### Principais Descobertas
 
@@ -15,21 +15,21 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - **LTX-2** (19B parâmetros) - NVFP8 otimizado, áudio+vídeo, desempenho confirmado
 - **FLUX.1/FLUX.2** - NVFP4 otimizado para imagens, 2.6s/imagem 1K
 - **Wan 2.1/2.2** (14B) - NVFP4 disponível, 3.2x mais rápido em Blackwell vs Hopper
-- **ComfyUI workflows** - Suporte oficial, 8x aceleração vs MacBook M4
+- **ComfyUI workflows** - Suporte oficial, 8x aceleraçêo vs MacBook M4
 
 ⚠️ **Limitações Conhecidas:**
-- Geração de vídeo é 2-3x **mais lenta** que RTX 5090 devido à largura de banda de memória
+- Geraçêo de vídeo é 2-3x **mais lenta** que RTX 5090 devido à largura de banda de memória
 - Ecossistema ARM64 + CUDA 13 é **frágil** com dependências instáveis
 - Alguns backends (FlashInfer throughput) têm problemas com SM12.1
 - PyTorch/diffusers requerem versões específicas (PyTorch 2.9.1+cu130)
 
 ❌ **Sem Evidências de Suporte:**
-- **MAGI-1** - Nenhuma menção de deployment em Blackwell/DGX Spark encontrada
-- **Waver 1.0** - Nenhuma informação específica sobre DGX Spark/GB10
+- **MAGI-1** - Nenhuma mençêo de deployment em Blackwell/DGX Spark encontrada
+- **Waver 1.0** - Nenhuma informaçêo específica sobre DGX Spark/GB10
 
 ---
 
-## 1. Modelos de Geração de Vídeo Confirmados
+## 1. Modelos de Geraçêo de Vídeo Confirmados
 
 ### 1.1 LTX-2 (Lightricks) ✅ RECOMENDADO
 
@@ -37,15 +37,15 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **Especificações:**
 - 19B parâmetros (14B vídeo + 5B áudio)
-- Dual-stream diffusion transformer com atenção cruzada áudio-vídeo
+- Dual-stream diffusion transformer com atençêo cruzada áudio-vídeo
 - Pesos NVFP8-otimizados disponíveis
 
 **Performance:**
-- Ganhos substanciais de performance vs geração anterior
-- Geração de vídeo+áudio unificada
+- Ganhos substanciais de performance vs geraçêo anterior
+- Geraçêo de vídeo+áudio unificada
 - Aproveita bem os 128GB de memória unificada
 
-**Documentação:**
+**Documentaçêo:**
 - Mencionado no blog oficial da NVIDIA como modelo destacado
 - Exemplo de deployment em Jetson Thor documentado (pipeline open-source)
 - Disponível via ComfyUI
@@ -67,12 +67,12 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - Expert de alto ruído (estrutura) + expert de baixo ruído (texturas)
 
 **Performance:**
-- **3.2x mais rápido** em B200 vs runtime padrão
+- **3.2x mais rápido** em B200 vs runtime padrêo
 - **2.6x mais rápido** em H100 com Baseten inference stack
-- 67% redução de custo em deployments dedicados de alto volume
+- 67% reduçêo de custo em deployments dedicados de alto volume
 - Com 24GB VRAM: 20s a 720p em 2 minutos (modelo destilado)
 
-**Quantização:**
+**Quantizaçêo:**
 - NVFP4 disponível em Hugging Face (lightx2v/Wan-NVFP4)
 - Mantém qualidade superior do Wan 2.1 com velocidade sem precedentes
 
@@ -91,7 +91,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - RTX 5090: 1,310 segundos
 - GB10: 3,606 segundos (2.75x mais lento)
 
-**Conclusão:** Não recomendado para produção em DGX Spark
+**Conclusêo:** Nêo recomendado para produçêo em DGX Spark
 
 **Referência:**
 - [ProxPC Performance Tests](https://www.proxpc.com/blogs/nvidia-dgx-spark-gb10-performance-test-vs-5090-llm-image-and-video-generation)
@@ -100,20 +100,20 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ### 1.4 MAGI-1 ❌ SEM EVIDÊNCIAS
 
-**Status:** Nenhuma documentação encontrada sobre deployment em Blackwell/DGX Spark
+**Status:** Nenhuma documentaçêo encontrada sobre deployment em Blackwell/DGX Spark
 
 **Especificações do Modelo:**
-- 24B parâmetros (versão maior)
-- Geração autoregressive de vídeo por chunks
+- 24B parâmetros (versêo maior)
+- Geraçêo autoregressive de vídeo por chunks
 - Suporta contextos de até 4 milhões de tokens
 - MagiAttention para contextos ultra-longos
 
 **Problema:**
-- Nenhuma menção de suporte NVFP4/FP8
+- Nenhuma mençêo de suporte NVFP4/FP8
 - Sem playbooks ou tutoriais para DGX Spark
-- Sem confirmação de compatibilidade com memória unificada
+- Sem confirmaçêo de compatibilidade com memória unificada
 
-**Recomendação:** Requer pesquisa experimental antes de assumir viabilidade
+**Recomendaçêo:** Requer pesquisa experimental antes de assumir viabilidade
 
 **Referências:**
 - [MAGI-1 arXiv Paper](https://arxiv.org/abs/2505.13211)
@@ -123,11 +123,11 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ### 1.5 Waver 1.0 (ByteDance) ❌ SEM EVIDÊNCIAS ESPECÍFICAS
 
-**Status:** Nenhuma informação específica sobre DGX Spark encontrada
+**Status:** Nenhuma informaçêo específica sobre DGX Spark encontrada
 
 **Especificações:**
 - Foundation model baseado em Rectified Flow Transformers
-- Suporta batch processing com aceleração GPU enterprise
+- Suporta batch processing com aceleraçêo GPU enterprise
 - Resoluções até 1080p
 - Vídeos de 2-10 segundos
 
@@ -143,7 +143,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ---
 
-## 2. Geração de Imagens (Status Forte)
+## 2. Geraçêo de Imagens (Status Forte)
 
 ### 2.1 FLUX.1 / FLUX.2 ✅ ALTAMENTE OTIMIZADO
 
@@ -170,15 +170,15 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **Referências:**
 - Mencionado como workload suportado em múltiplas fontes
-- Parte do ecossistema padrão de difusão
+- Parte do ecossistema padrêo de difusêo
 
 ---
 
 ## 3. Frameworks e Bibliotecas
 
-### 3.1 PyTorch ⚠️ VERSÃO ESPECÍFICA NECESSÁRIA
+### 3.1 PyTorch ⚠️ VERSêO ESPECÍFICA NECESSÁRIA
 
-**Versão Recomendada:** PyTorch 2.9.1 + CUDA 13.0
+**Versêo Recomendada:** PyTorch 2.9.1 + CUDA 13.0
 
 **Status:**
 - PyTorch 2.9.0 compilado com SM_121 + CUDA 13.0 disponível
@@ -186,11 +186,11 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - **Requisito crítico:** PyTorch 2.9.1+ para aproveitar NVFP4 (30% mais rápido)
 
 **Desafios:**
-- Compilação manual pode ser necessária
-- ARM64 + CUDA 13 é combinação rara, pouca cobertura em CI/CD
+- Compilaçêo manual pode ser necessária
+- ARM64 + CUDA 13 é combinaçêo rara, pouca cobertura em CI/CD
 - torchaudio teve incompatibilidades no container NGC PyTorch 25.12
 
-**Solução para Vídeo:**
+**Soluçêo para Vídeo:**
 - Usar `torchvision_av` como backend de vídeo (funciona com pyAV em aarch64)
 
 **Referências:**
@@ -201,14 +201,14 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ### 3.2 Hugging Face Diffusers ⚠️ COMPATÍVEL COM RESSALVAS
 
-**Status:** Funciona mas requer configuração cuidadosa
+**Status:** Funciona mas requer configuraçêo cuidadosa
 
 **Modelos Otimizados:**
 - FLUX.1/FLUX.2 com NVFP4
 - LTX-2 com NVFP8
 - Suporte geral para diffusion transformers
 
-**Técnicas de Otimização:**
+**Técnicas de Otimizaçêo:**
 - NVFP4 quantization via microscaling data formats
 - TeaCache (~2x speedup)
 - FP8 quantization do text encoder
@@ -232,10 +232,10 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - RTX Video node para upscaling 4K
 
 **Performance:**
-- 40% otimização de performance em GPUs NVIDIA
-- NVFP4: 3x mais rápido, 60% redução de VRAM
-- NVFP8: 2x mais rápido, 40% redução de VRAM
-- **8x aceleração** vs MacBook M4 Max (workflow completo em ~1min vs 8min)
+- 40% otimizaçêo de performance em GPUs NVIDIA
+- NVFP4: 3x mais rápido, 60% reduçêo de VRAM
+- NVFP8: 2x mais rápido, 40% reduçêo de VRAM
+- **8x aceleraçêo** vs MacBook M4 Max (workflow completo em ~1min vs 8min)
 
 **Limitações Conhecidas:**
 - Memória limitada a 64GB em alguns workflows (issue reportado)
@@ -250,7 +250,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ### 3.4 NVIDIA TensorRT ✅ ALTAMENTE RECOMENDADO
 
-**Status:** Framework de otimização primário para Blackwell
+**Status:** Framework de otimizaçêo primário para Blackwell
 
 **Capacidades:**
 - FP4 (NVFP4) quantization nativa
@@ -261,7 +261,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 **Aplicações:**
 - Image generation (FLUX)
 - Video generation (diffusion transformers)
-- Otimização de 98% da latência (transformer backbone)
+- Otimizaçêo de 98% da latência (transformer backbone)
 
 **Processo:**
 1. Quantizar para FP4/FP8 com Model Optimizer
@@ -307,7 +307,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 - Parte do ecossistema NVIDIA oficial
 
 **Isaac Sim/Lab:**
-- Simulação de robótica
+- Simulaçêo de robótica
 - Aproveitamento de memória unificada
 
 **Referência:**
@@ -315,13 +315,13 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ---
 
-## 4. Estratégias de Quantização
+## 4. Estratégias de Quantizaçêo
 
 ### 4.1 NVFP4 (4-bit Floating Point)
 
 **O que é:**
 - Formato de 4 bits exclusivo de Blackwell
-- Mantém precisão próxima a FP8 (<1% degradação)
+- Mantém precisêo próxima a FP8 (<1% degradaçêo)
 - Reduz memory bandwidth e storage
 
 **Quando Usar:**
@@ -332,7 +332,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **Performance:**
 - Até 3x mais rápido que FP8
-- 60% redução de VRAM
+- 60% reduçêo de VRAM
 - ~1 PFLOP teórico no GB10
 
 **Ferramentas:**
@@ -350,17 +350,17 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **O que é:**
 - Suporte nativo em Blackwell Tensor Cores
-- Precisão mixed com FP16 para acumulação
+- Precisêo mixed com FP16 para acumulaçêo
 
 **Quando Usar:**
-- Wan 2.1 (máximo contexto sem compressão)
+- Wan 2.1 (máximo contexto sem compressêo)
 - Waver 1.0 (qualidade+performance balanceados)
 - LTX-2 variantes menores
 
 **Performance:**
 - ~2x mais rápido que FP16
-- 40% redução de VRAM
-- Boa preservação de qualidade
+- 40% reduçêo de VRAM
+- Boa preservaçêo de qualidade
 
 **Referências:**
 - [DGX Spark Performance Guide](https://developer.nvidia.com/blog/how-nvidia-dgx-sparks-performance-enables-intensive-ai-tasks/)
@@ -381,9 +381,9 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ---
 
-### 4.4 Problemas Conhecidos com Quantização
+### 4.4 Problemas Conhecidos com Quantizaçêo
 
-**Issue: FP4 Não Escala Como Esperado**
+**Issue: FP4 Nêo Escala Como Esperado**
 
 **Sintomas:**
 - Speedup real menor que teórico
@@ -391,7 +391,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **Causas:**
 - Memory bandwidth bottleneck (LPDDR5x vs GDDR7)
-- Overhead de decompressão
+- Overhead de decompressêo
 - Kernel optimization ainda em desenvolvimento
 
 **Soluções:**
@@ -408,7 +408,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ### 5.1 Vantagens
 
-**Eliminação de Bottlenecks:**
+**Eliminaçêo de Bottlenecks:**
 - Transferência CPU-GPU a 900 GB/s via NVLink-C2C
 - Todo o pool de 128GB compartilhado instantaneamente
 - Sem cópias de dados entre memórias separadas
@@ -424,30 +424,30 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 ---
 
-### 5.2 Limitações para Geração de Vídeo
+### 5.2 Limitações para Geraçêo de Vídeo
 
 **Problema: Largura de Banda**
 - LPDDR5x: Menor bandwidth que GDDR7
-- Geração criativa é memory-bandwidth intensive
+- Geraçêo criativa é memory-bandwidth intensive
 - RTX 5090 é 2-3x mais rápido para vídeo
 
-**Conclusão do Benchmarking:**
+**Conclusêo do Benchmarking:**
 > "For pure media creation, the RTX 5090's raw CUDA performance is superior."
 
 **Trade-offs:**
 - GB10: Capacidade massiva (128GB) vs Velocidade
 - RTX 5090: Velocidade vs Capacidade (24GB)
 
-**Recomendação:**
+**Recomendaçêo:**
 - DGX Spark: Inference, fine-tuning, modelos massivos
-- RTX 5090: Produção de vídeo em tempo real
+- RTX 5090: Produçêo de vídeo em tempo real
 
 **Referência:**
 - [ProxPC Benchmarks](https://www.proxpc.com/blogs/nvidia-dgx-spark-gb10-performance-test-vs-5090-llm-image-and-video-generation)
 
 ---
 
-## 6. Recursos Oficiais e Documentação
+## 6. Recursos Oficiais e Documentaçêo
 
 ### 6.1 NVIDIA DGX Spark Playbooks ✅ ESSENCIAL
 
@@ -473,7 +473,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 
 **URL:** https://docs.nvidia.com/dgx/dgx-spark/dgx-spark.pdf
 
-**Última Atualização:** 12 de Fevereiro de 2026
+**Última Atualizaçêo:** 12 de Fevereiro de 2026
 
 **Conteúdo:**
 - Hardware overview
@@ -512,7 +512,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 ### 7.1 ComfyUI + DGX Spark Workflow (NVIDIA Official)
 
 **Caso de Uso:**
-- Geração de vídeo 4K de carro esportivo em cidade futurista
+- Geraçêo de vídeo 4K de carro esportivo em cidade futurista
 - FLUX.1-dev + WAN 2.2 + GPU upscalers
 
 **Setup:**
@@ -521,7 +521,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 **Resultados:**
 - MacBook sozinho: ~8 minutos
 - Com DGX Spark: ~1 minuto
-- **8x de aceleração**
+- **8x de aceleraçêo**
 
 **Componentes:**
 - RTX Video node para upscaling 4K
@@ -581,17 +581,17 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 ### 8.2 PyTorch ARM64 + CUDA 13 Ecosystem
 
 **Problema:**
-- Combinação rara com pouca cobertura de CI/CD
+- Combinaçêo rara com pouca cobertura de CI/CD
 - Dependências podem quebrar
 
 **Workarounds:**
 - Usar containers NGC quando disponíveis
 - Fixar versões específicas de dependências
-- Compilação manual quando necessário
+- Compilaçêo manual quando necessário
 
 **Exemplo - torchaudio:**
 - Incompatibilidade no NGC PyTorch 25.12
-- Solução: usar torchvision_av backend
+- Soluçêo: usar torchvision_av backend
 
 ---
 
@@ -613,15 +613,15 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 **Problema:**
 - Throughput backend com problemas em SM12.1
 
-**Solução:**
+**Soluçêo:**
 - Usar latency backend
 - Configurar explicitamente no código
 
 ---
 
-## 9. Comparação: DGX Spark vs RTX 5090
+## 9. Comparaçêo: DGX Spark vs RTX 5090
 
-### 9.1 Geração de Imagem
+### 9.1 Geraçêo de Imagem
 
 | Modelo | RTX 5090 | GB10 (DGX Spark) | Winner |
 |--------|----------|------------------|--------|
@@ -629,16 +629,16 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 | Qwen3 4B + Image 2 Turbo FP16 (Gen 2) | 1.69s | 6.17s | RTX 5090 |
 | Flux Dev Mixed Precision | 50-56.6s | 237-129s | RTX 5090 |
 
-### 9.2 Geração de Vídeo
+### 9.2 Geraçêo de Vídeo
 
 | Modelo | RTX 5090 | GB10 (DGX Spark) | Diferença |
 |--------|----------|------------------|-----------|
 | Hunyuan Video 1.5 FP16 | 1,310s | 3,606s | 2.75x mais lento |
 
-### 9.3 Conclusão
+### 9.3 Conclusêo
 
 **RTX 5090 Vence em:**
-- Velocidade pura de geração
+- Velocidade pura de geraçêo
 - Media creation workflows
 - Real-time rendering
 
@@ -662,7 +662,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
    - Suporte oficial confirmado
    - Pesos otimizados disponíveis
    - Vídeo + áudio unificado
-   - Melhor escolha para produção
+   - Melhor escolha para produçêo
 
 2. **FLUX.1/FLUX.2 (NVFP4)** ✅
    - Excelente para imagens
@@ -672,7 +672,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
 3. **Wan 2.1/2.2 (NVFP4)** ✅
    - Pesos NVFP4 disponíveis
    - Performance 3.2x melhor em Blackwell
-   - Boa opção secundária
+   - Boa opçêo secundária
 
 4. **Hunyuan Video** ⚠️
    - Funciona mas lento
@@ -684,7 +684,7 @@ A pesquisa revelou que o DGX Spark é **otimizado principalmente para inferênci
    - Baixa prioridade
 
 6. **Waver 1.0** ❌
-   - Informação insuficiente
+   - Informaçêo insuficiente
    - Testar apenas se tempo permitir
 
 ---
@@ -718,9 +718,9 @@ Python Application
 
 ---
 
-### 10.3 Estratégia de Quantização por Modelo
+### 10.3 Estratégia de Quantizaçêo por Modelo
 
-| Modelo | Quantização | Justificativa |
+| Modelo | Quantizaçêo | Justificativa |
 |--------|-------------|---------------|
 | LTX-2 Full | NVFP8 | Pesos oficiais, melhor balanço |
 | LTX-2 Lite | FP16 | Se couber em memória, máxima qualidade |
@@ -736,23 +736,23 @@ Python Application
    - [ ] Configurar ComfyUI via playbook oficial
    - [ ] Testar FLUX.1 como baseline
 
-2. **Validação de Modelos:**
+2. **Validaçêo de Modelos:**
    - [ ] Download e teste de LTX-2 (NVFP8)
    - [ ] Benchmark de performance (tempo/frame)
    - [ ] Teste de qualidade visual
 
-3. **Pipeline de Produção:**
+3. **Pipeline de Produçêo:**
    - [ ] Configurar workflow ComfyUI para LTX-2
-   - [ ] Integração de upscaling (RTX Video node)
-   - [ ] Automação de batch processing
+   - [ ] Integraçêo de upscaling (RTX Video node)
+   - [ ] Automaçêo de batch processing
 
-4. **Otimização:**
+4. **Otimizaçêo:**
    - [ ] Experimentar NVFP4 vs NVFP8
    - [ ] Tuning de memory utilization
    - [ ] Documentar parâmetros ótimos
 
-5. **Exploração Avançada:**
-   - [ ] Testar Wan 2.2 (se LTX-2 não atender)
+5. **Exploraçêo Avançada:**
+   - [ ] Testar Wan 2.2 (se LTX-2 nêo atender)
    - [ ] Pesquisar MAGI-1 viability
    - [ ] Custom fine-tuning se necessário
 
@@ -780,7 +780,7 @@ Python Application
 
 ### 11.1 Hardware
 
-- **Bandwidth:** LPDDR5x < GDDR7 → geração de vídeo mais lenta que GPUs dedicadas
+- **Bandwidth:** LPDDR5x < GDDR7 → geraçêo de vídeo mais lenta que GPUs dedicadas
 - **Cooling:** Workloads prolongados podem thermal throttle
 - **Power:** ~350W max, considerar para batch processing
 
@@ -794,43 +794,43 @@ Python Application
 
 - **DGX Spark:** ~$2,000 (preço aproximado)
 - **Trade-off:** Investimento inicial maior, mas reduz custos de cloud a longo prazo
-- **Amortização:** Viável para uso frequente (>100h/mês)
+- **Amortizaçêo:** Viável para uso frequente (>100h/mês)
 
 ---
 
-## 12. Conclusão
+## 12. Conclusêo
 
-O **NVIDIA DGX Spark com GB10 é viável para geração de vídeo/imagem**, mas com ressalvas importantes:
+O **NVIDIA DGX Spark com GB10 é viável para geraçêo de vídeo/imagem**, mas com ressalvas importantes:
 
 **Pontos Fortes:**
 - ✅ Excelente para modelos massivos (até 200B parâmetros)
 - ✅ LTX-2 e FLUX têm otimizações oficiais NVFP4/NVFP8
 - ✅ ComfyUI suportado oficialmente com workflows prontos
 - ✅ 128GB unified memory é vantagem única
-- ✅ Ecossistema de playbooks e documentação em crescimento
+- ✅ Ecossistema de playbooks e documentaçêo em crescimento
 
 **Pontos Fracos:**
-- ⚠️ 2-3x mais lento que RTX 5090 para geração pura
+- ⚠️ 2-3x mais lento que RTX 5090 para geraçêo pura
 - ⚠️ Ecossistema ARM64+CUDA13 ainda frágil
 - ⚠️ Alguns modelos (MAGI-1, Waver) sem suporte confirmado
 - ⚠️ Requer conhecimento técnico para otimizar
 
 **Veredicto Final:**
 Para o projeto **VideosDGX**, o DGX Spark é uma escolha **sólida** se o foco for:
-1. **Experimentação** com modelos grandes (LTX-2, Wan)
-2. **Fine-tuning** e customização
+1. **Experimentaçêo** com modelos grandes (LTX-2, Wan)
+2. **Fine-tuning** e customizaçêo
 3. **Inference local** com privacidade
 4. **Batch processing** overnight
 
-Se o objetivo for **produção em tempo real** ou **máxima velocidade**, uma RTX 5090 seria mais apropriada. Mas para desenvolvimento e deployment de pipelines inteligentes que aproveitam a capacidade massiva de memória, o DGX Spark é excelente.
+Se o objetivo for **produçêo em tempo real** ou **máxima velocidade**, uma RTX 5090 seria mais apropriada. Mas para desenvolvimento e deployment de pipelines inteligentes que aproveitam a capacidade massiva de memória, o DGX Spark é excelente.
 
-**Recomendação:** Começar com **LTX-2 (NVFP8) via ComfyUI** como prova de conceito, seguindo o playbook oficial da NVIDIA.
+**Recomendaçêo:** Começar com **LTX-2 (NVFP8) via ComfyUI** como prova de conceito, seguindo o playbook oficial da NVIDIA.
 
 ---
 
 ## Fontes Consultadas
 
-### Documentação Oficial NVIDIA
+### Documentaçêo Oficial NVIDIA
 - [DGX Spark Product Page](https://www.nvidia.com/en-us/products/workstations/dgx-spark/)
 - [New Software and Model Optimizations Supercharge NVIDIA DGX Spark](https://developer.nvidia.com/blog/new-software-and-model-optimizations-supercharge-nvidia-dgx-spark/)
 - [How NVIDIA DGX Spark's Performance Enables Intensive AI Tasks](https://developer.nvidia.com/blog/how-nvidia-dgx-sparks-performance-enables-intensive-ai-tasks/)
@@ -876,5 +876,5 @@ Se o objetivo for **produção em tempo real** ou **máxima velocidade**, uma RT
 ---
 
 **Documento gerado em:** 16 de Fevereiro de 2026
-**Última atualização das fontes:** Fevereiro 2026
-**Próxima revisão recomendada:** Março 2026 (novos drivers e modelos)
+**Última atualizaçêo das fontes:** Fevereiro 2026
+**Próxima revisêo recomendada:** Março 2026 (novos drivers e modelos)

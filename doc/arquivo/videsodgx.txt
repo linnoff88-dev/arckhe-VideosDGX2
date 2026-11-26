@@ -15,12 +15,12 @@ Lembrando que o DGX Spark tem 128GB de memória unificada (CPU+GPU) e ~1 PFLOP F
 
 ## 📊 Tabela Estratégica — Uso no DGX Spark
 
-| Modelo            | Roda completo no Spark? | Melhor Configuração | Quantização ideal | O que o Spark permite fazer melhor       |
+| Modelo            | Roda completo no Spark? | Melhor Configuraçêo | Quantizaçêo ideal | O que o Spark permite fazer melhor       |
 | ----------------- | ----------------------- | ------------------- | ----------------- | ---------------------------------------- |
-| LTX-2         | ✅ Sim                   | FP8 / FP4           | NVFP4             | Rodar versão full + áudio local          |
-| Wan 2.1 (14B) | ✅ Sim                   | FP16 / FP8          | FP8               | Rodar versão maior sem cortar contexto   |
+| LTX-2         | ✅ Sim                   | FP8 / FP4           | NVFP4             | Rodar versêo full + áudio local          |
+| Wan 2.1 (14B) | ✅ Sim                   | FP16 / FP8          | FP8               | Rodar versêo maior sem cortar contexto   |
 | MAGI-1        | ✅ Sim                   | FP8                 | NVFP4             | Vídeos longos com mais contexto temporal |
-| Waver 1.0     | ✅ Sim                   | FP16                | FP8               | Geração rápida paralela                  |
+| Waver 1.0     | ✅ Sim                   | FP16                | FP8               | Geraçêo rápida paralela                  |
 
 ---
 
@@ -30,18 +30,18 @@ Lembrando que o DGX Spark tem 128GB de memória unificada (CPU+GPU) e ~1 PFLOP F
 
 Por que o Spark é interessante aqui:
 
-* 128GB memória unificada permite rodar versão maior sem dividir modelo
+* 128GB memória unificada permite rodar versêo maior sem dividir modelo
 * Pode manter buffers de áudio + vídeo simultaneamente
 * FP4 permite rodar modelos maiores com menor consumo
 
 Uso ideal:
 
-* Produção cinematográfica local
-* Pipeline completo (geração → upscaling → render)
+* Produçêo cinematográfica local
+* Pipeline completo (geraçêo → upscaling → render)
 * Prototipar algo estilo “mini-Sora local”
 
 ⚡ Vantagem real do Spark:
-Não precisa fazer offload para CPU ou dividir GPU como faria numa RTX 4090.
+Nêo precisa fazer offload para CPU ou dividir GPU como faria numa RTX 4090.
 
 ---
 
@@ -60,7 +60,7 @@ Você pode:
 * Testar fine-tuning
 
 ⚡ O Spark permite:
-Rodar versão full precision sem ficar no limite de VRAM.
+Rodar versêo full precision sem ficar no limite de VRAM.
 
 ---
 
@@ -88,11 +88,11 @@ No Spark você pode:
 
 * Rodar múltiplas instâncias
 * Fazer batch de marketing (10–20 vídeos por vez)
-* Usar quantização leve e manter qualidade
+* Usar quantizaçêo leve e manter qualidade
 
 ---
 
-# 🧠 O que o DGX Spark permite que uma GPU comum não permite
+# 🧠 O que o DGX Spark permite que uma GPU comum nêo permite
 
 | Capacidade                         | RTX 4090    | DGX Spark   |
 | ---------------------------------- | ----------- | ----------- |
@@ -110,13 +110,13 @@ Você poderia:
 
 ### 🎬 1. Criar um estúdio de IA local
 
-* LTX-2 para produção
+* LTX-2 para produçêo
 * Waver para social media
-* Wan para experimentação
+* Wan para experimentaçêo
 
 ### 📈 2. Criar um SaaS privado
 
-Rodar API interna para geração de vídeo.
+Rodar API interna para geraçêo de vídeo.
 
 ### 🧠 3. Treinar seu próprio modelo de vídeo especializado
 
@@ -132,12 +132,12 @@ Spark pode rodar:
 
 * LLM grande
 * Modelo de vídeo
-* Modelo de visão
+* Modelo de visêo
   Tudo local.
 
 ---
 
-# 🎯 Melhor Combinação no DGX Spark
+# 🎯 Melhor Combinaçêo no DGX Spark
 
 Se eu tivesse um Spark hoje para vídeo:
 

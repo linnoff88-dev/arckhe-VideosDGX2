@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Status dos jobs da interface web (porta 7862) — substitui a versão antiga que
+Status dos jobs da interface web (porta 7862) — substitui a versêo antiga que
 batia nas portas do Docker (8001-8004, descontinuadas).
 
 Uso: python3 check_jobs_status.py
@@ -17,7 +17,7 @@ def main():
     try:
         jobs = requests.get(f"{WEB_URL}/api/jobs", timeout=10).json()
     except Exception as e:
-        print(f"❌ Interface web não respondeu ({WEB_URL}): {e}")
+        print(f"❌ Interface web nêo respondeu ({WEB_URL}): {e}")
         print("   Suba com: ./iniciar_interface_web.sh")
         sys.exit(1)
 
@@ -32,7 +32,7 @@ def main():
         st = j.get("status", "?")
         req = j.get("request", {})
         if st == "queued":
-            info = f"posição #{j.get('queue_position', '?')}"
+            info = f"posiçêo #{j.get('queue_position', '?')}"
         elif st == "processing":
             info = f"{j.get('progress_pct', 0)}%"
         elif st == "completed":
