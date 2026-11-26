@@ -11,12 +11,12 @@ import requests
 WEB_URL = "http://127.0.0.1:7862"
 
 TESTS = [
-    {"model": "wan22_5b",  "prompt": "a calm ocean wave at sunset, cinematic",
+    {"model": "wan22_5b",  "prompt": "a calm ocean wave at sunset, cARCKHÉtic",
      "width": 720, "height": 480, "frames": 33, "cfg": 6.0, "seed": 1},
-    {"model": "wan22_14b", "prompt": "a calm ocean wave at sunset, cinematic",
+    {"model": "wan22_14b", "prompt": "a calm ocean wave at sunset, cARCKHÉtic",
      "width": 832, "height": 480, "frames": 33, "cfg": 3.5, "seed": 1,
      "steps": 30, "split_step": 15},
-    {"model": "ltx23",     "prompt": "a calm ocean wave at sunset, cinematic",
+    {"model": "ltx23",     "prompt": "a calm ocean wave at sunset, cARCKHÉtic",
      "width": 512, "height": 512, "frames": 49, "cfg": 3.0, "seed": 1},
 ]
 

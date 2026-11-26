@@ -483,7 +483,7 @@ async def home():
     <div class="model-btn active" onclick="selectModel('wan22_14b', this)">
       <span class="model-badge badge-best">MELHOR</span>
       <div class="model-name">Wan 2.2 14B MoE</div>
-      <div class="model-desc">Qualidade cinematográfica · Dual-Expert · ~8 min</div>
+      <div class="model-desc">Qualidade cARCKHÉtográfica · Dual-Expert · ~8 min</div>
     </div>
     <div class="model-btn" onclick="selectModel('wan22_5b', this)">
       <span class="model-badge badge-fast">RÁPIDO</span>

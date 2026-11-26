@@ -22,7 +22,7 @@ Mudanças notáveis do projeto. Formato baseado em [Keep a Changelog](https://ke
 
 ### Infra
 - Repositório original preservado como backup em
-  [`inematds/VideosDGX`](https://github.com/inematds/VideosDGX); este repo (`VideosDGX2`)
+  [`linnoff88-dev/VideosDGX`](https://github.com/linnoff88-dev/VideosDGX); este repo (`VideosDGX2`)
   começa com histórico limpo.
 
 ---
@@ -42,4 +42,4 @@ Mudanças notáveis do projeto. Formato baseado em [Keep a Changelog](https://ke
 Primeira implementaçêo: 4 containers Docker (LTX-2 / Wan 2.1 / MAGI-1 / Waver) com
 camada FastAPI compartilhada. **Abandonado** — `torch.xpu` nêo funciona em ARM64 e a GPU
 nêo era detectada nos containers. Substituído pelo ComfyUI. Histórico completo no repo
-backup `inematds/VideosDGX`.
+backup `linnoff88-dev/VideosDGX`.

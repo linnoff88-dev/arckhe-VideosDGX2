@@ -12,7 +12,7 @@
 
 - **Três modos nativos unificados** em um único framework
 - **Multi-reference consistency** — mantém identidade visual através de 1-4 imagens de referência
-- **Transições cinematográficas** com 5 tipos de cortes profissionais
+- **Transições cARCKHÉtográficas** com 5 tipos de cortes profissionais
 - **Talking avatars** com sincronizaçêo labial multi-idioma
 
 ---
@@ -140,7 +140,7 @@ python3 generate_video.py \
 | **V2V Extension** | ❌ | ❌ | ❌ | ✅ |
 | **Talking Avatar** | ❌ | ❌ | ❌ | ✅ |
 | **Geraçêo de áudio** | ✅ | ❌ | ❌ | ❌ |
-| **Transições cinematográficas** | ❌ | ❌ | ❌ | ✅ |
+| **Transições cARCKHÉtográficas** | ❌ | ❌ | ❌ | ✅ |
 | **VRAM estimada** | ~45 GB | ~90 GB | ~25 GB | ~24 GB (14B), ~30 GB (19B) |
 | **Resoluçêo máxima** | 1024×576 | 1280×720 | 1280×720 | 1280×720 |
 | **Duraçêo máxima** | ~5s | ~5s | ~5s | **30s** (extensível) |
@@ -151,7 +151,7 @@ python3 generate_video.py \
 ✅ **V2V nativo** — estende vídeos existentes (nossos modelos nêo fazem isso)
 ✅ **Talking Avatar** — sincronizaçêo labial com áudio externo
 ✅ **Vídeos mais longos** — até 30s por extensêo (iterável)
-✅ **Transições cinematográficas** — 5 tipos de cortes profissionais
+✅ **Transições cARCKHÉtográficas** — 5 tipos de cortes profissionais
 ✅ **Aspect ratios flexíveis** — 5 formatos nativos
 
 ### Desvantagens vs Setup Atual
@@ -234,7 +234,7 @@ python3 generate_video.py \
    - Avatar sincronizado automaticamente
    - LTX-2 gera áudio, mas nêo aceita áudio externo como input
 
-4. **Ediçêo com transições cinematográficas**
+4. **Ediçêo com transições cARCKHÉtográficas**
    - 5 tipos de cortes (Cut-In, Reverse Shot, etc.)
    - Produçêo semi-automatizada de vídeos multi-cena
    - Modelos atuais: T2V/I2V isolado, sem transições

@@ -5,7 +5,7 @@ GeraêÂ§êÂ£o de vêÂ­deo com **Wan 2.2** rodando localmente no **NV
 interface web prêÂ³pria com fila de jobs.
 
 > ContinuaêÂ§êÂ£o reorganizada do repositêÂ³rio original
-> [`inematds/VideosDGX`](https://github.com/inematds/VideosDGX) (mantido como backup
+> [`linnoff88-dev/VideosDGX`](https://github.com/linnoff88-dev/VideosDGX) (mantido como backup
 > histêÂ³rico). Aqui ficou sêÂ³ o stack ativo: ComfyUI + Wan 2.2. Os pipelines antigos
 > (LTX-2, Wan 2.1, MAGI-1, Waver) e o approach Docker foram removidos.
 

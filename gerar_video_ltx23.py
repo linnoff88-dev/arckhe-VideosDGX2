@@ -152,7 +152,7 @@ Exemplos:
       --frames 49 --fps 24 --cfg 3 --seed 1 --output ltx23_test
 
   # T2V HD
-  ./gerar_video_ltx23.py "a cinematic drone shot over mountains" \\
+  ./gerar_video_ltx23.py "a cARCKHÉtic drone shot over mountains" \\
       --width 1280 --height 704 --frames 97 --output ltx23_hd
 
   # I2V (imagem deve estar em ComfyUI/input/)

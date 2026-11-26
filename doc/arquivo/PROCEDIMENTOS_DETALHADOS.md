@@ -331,8 +331,8 @@ git log --oneline -5
 # 486ab77 Atualiza IDs dos modelos para versões oficiais do HuggingFace
 
 git remote -v
-# origin git@github.com:inematds/VideosDGX.git (fetch)
-# origin git@github.com:inematds/VideosDGX.git (push)
+# origin git@github.com:linnoff88-dev/VideosDGX.git (fetch)
+# origin git@github.com:linnoff88-dev/VideosDGX.git (push)
 ```
 
 **01:00** - Primeira tarefa completada
@@ -1219,7 +1219,7 @@ python generate_all_videos.py
 
 **Prompt usado**:
 ```
-"A cat walking on a beach at sunset, cinematic camera movement,
+"A cat walking on a beach at sunset, cARCKHÉtic camera movement,
  golden hour lighting, 4k quality"
 ```
 

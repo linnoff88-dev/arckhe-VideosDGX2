@@ -77,12 +77,12 @@ def submit_workflow(workflow):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Gera vídeos usando Wan 2.2 14B MoE (qualidade cinematográfica máxima)",
+        description="Gera vídeos usando Wan 2.2 14B MoE (qualidade cARCKHÉtográfica máxima)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exemplos:
   # 720P, ~3.5s (padrêo)
-  ./gerar_video_wan22_14b.py "a cinematic shot of a waterfall"
+  ./gerar_video_wan22_14b.py "a cARCKHÉtic shot of a waterfall"
 
   # 480P mais rápido
   ./gerar_video_wan22_14b.py "ocean waves" --width 832 --height 480 --frames 33
@@ -97,7 +97,7 @@ Wan 2.2 14B MoE - Arquitetura:
   - Expert 1 (High Noise): Steps 0 → split_step  (primeiras etapas)
   - Expert 2 (Low Noise):  Steps split_step → total (últimas etapas)
   - CFG padrêo: 3.5 (mais baixo que Wan 2.1 e 5B)
-  - Qualidade cinematográfica máxima da família Wan
+  - Qualidade cARCKHÉtográfica máxima da família Wan
 
 Parâmetros recomendados:
   - 720P:  1280x704, 57 frames  (~3.5s @ 24fps) — ~6-8 min geraçêo

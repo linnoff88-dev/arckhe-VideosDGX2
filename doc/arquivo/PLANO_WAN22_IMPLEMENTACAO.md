@@ -71,7 +71,7 @@ Total: ~27 GB
 | **Audio-Driven** | ❌ Nêo | ✅ Sim (S2V-14B) |
 | **Character Animation** | ❌ Nêo | ✅ Sim (Animate-14B) |
 | **Geraçêo de texto em cena** | ✅ Sim | ✅ Sim (melhorado) |
-| **Controle cinematográfico** | ⚠️ Básico | ✅ Avançado (iluminaçêo, cor, composiçêo) |
+| **Controle cARCKHÉtográfico** | ⚠️ Básico | ✅ Avançado (iluminaçêo, cor, composiçêo) |
 
 ### Performance e Qualidade
 
@@ -79,7 +79,7 @@ Total: ~27 GB
 |---------|---------|---------|
 | **Velocidade (14B)** | Baseline | 2x mais lento (2 modelos) |
 | **Velocidade (5B)** | N/A | ~6 min/vídeo (RTX 4090) |
-| **Qualidade visual** | Atmosférico, fluido | Nítido, estruturado, cinematográfico |
+| **Qualidade visual** | Atmosférico, fluido | Nítido, estruturado, cARCKHÉtográfico |
 | **Aderência ao prompt** | Boa | Excelente |
 | **Movimentos complexos** | Bom | Muito melhor (+83% dados de vídeo) |
 | **Detalhes finos** | Bom | Superior em 720P |
@@ -119,7 +119,7 @@ Total: ~27 GB
 - ✅ Hardware mais limitado
 
 #### **Escolha Wan 2.2 se:**
-- ✅ Prioriza qualidade cinematográfica máxima
+- ✅ Prioriza qualidade cARCKHÉtográfica máxima
 - ✅ Precisa de recursos exclusivos (I2V, First-Last Frame, Audio-Driven)
 - ✅ Tem hardware robusto (DGX Spark qualifica!)
 - ✅ Quer melhor aderência ao prompt
@@ -162,7 +162,7 @@ ComfyUI/models/
 ### Opçêo 2: Apenas Wan 2.2 14B MoE
 
 **Justificativa:**
-- Máxima qualidade cinematográfica
+- Máxima qualidade cARCKHÉtográfica
 - Recursos mais avançados
 - Ainda viável no DGX Spark
 
@@ -345,7 +345,7 @@ Se houver interesse, implementar:
 - ✅ Bom para experimentaçêo rápida
 
 #### Wan 2.2 14B MoE
-- ✅ **Máxima qualidade cinematográfica**
+- ✅ **Máxima qualidade cARCKHÉtográfica**
 - ✅ **Melhor aderência ao prompt**
 - ✅ **Controle estético avançado**
 - ✅ Movimentos complexos superiores
@@ -431,7 +431,7 @@ Se houver interesse, implementar:
 1. **Memória unificada 128GB** suporta todos os modelos confortavelmente
 2. **Flexibilidade máxima**: Cada modelo tem seus pontos fortes
 3. **Text encoder compartilhado**: Economia significativa
-4. **Casos de uso diferentes**: LTX-2 (áudio), Wan 2.1 (velocidade + LoRAs), Wan 2.2 (qualidade cinematográfica)
+4. **Casos de uso diferentes**: LTX-2 (áudio), Wan 2.1 (velocidade + LoRAs), Wan 2.2 (qualidade cARCKHÉtográfica)
 5. **DGX Spark é hardware premium**: Aproveitar ao máximo
 
 ### Ordem de Implementaçêo:
@@ -447,7 +447,7 @@ DGX Spark com 3+ modelos funcionais:
 - LTX-2 19B: Vídeo + Áudio
 - Wan 2.1 14B: Velocidade + Ecossistema
 - Wan 2.2 5B: Leveza + Híbrido T2V+I2V
-- Wan 2.2 14B MoE: Qualidade Cinematográfica Máxima
+- Wan 2.2 14B MoE: Qualidade CARCKHÉtográfica Máxima
 
 Total: ~250 GB modelos (128GB memória unificada OK)
 Interface Web: Seleçêo de modelo dropdown

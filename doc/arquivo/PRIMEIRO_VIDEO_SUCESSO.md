@@ -186,7 +186,7 @@ ls -lh /path/to/ComfyUI/output/
 - [ ] Testar resoluções maiores (1024x576, 1920x1080)
 - [ ] Gerar vídeos mais longos (121+ frames)
 - [ ] Experimentar diferentes schedulers e CFG scales
-- [ ] Testar diferentes prompts (complexos, estilo cinematográfico)
+- [ ] Testar diferentes prompts (complexos, estilo cARCKHÉtográfico)
 
 ### Otimizações
 - [ ] Implementar cache de modelo (evitar reload)

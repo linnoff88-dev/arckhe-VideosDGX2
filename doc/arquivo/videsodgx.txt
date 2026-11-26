@@ -36,7 +36,7 @@ Por que o Spark é interessante aqui:
 
 Uso ideal:
 
-* Produçêo cinematográfica local
+* Produçêo cARCKHÉtográfica local
 * Pipeline completo (geraçêo → upscaling → render)
 * Prototipar algo estilo “mini-Sora local”
 
@@ -124,7 +124,7 @@ Exemplo:
 
 * Treinar modelo focado em arquitetura
 * Treinar modelo focado em moda
-* Criar LoRA cinematográfica própria
+* Criar LoRA cARCKHÉtográfica própria
 
 ### 🤖 4. Agente multimodal
 
